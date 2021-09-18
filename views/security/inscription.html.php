@@ -1,3 +1,11 @@
+<?php 
+
+if (isset($_SESSION['arrayError'])) {
+   $arrayError=$_SESSION['arrayError'];
+   unset($_SESSION['arrayError']);
+}
+?>
+
 <?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
   
 <body>
@@ -11,26 +19,33 @@
               </style>
               <div class="col-md-6 ">
                 <form action="<?=WEB_ROUTE?>" method="post">
+                      <input type="hidden" name="controlleurs" value="security"/>
+                      <input type="hidden" name="action" value="inscription"/>
+                      <input type="hidden" name="action" value="<?= isset($user['id'])?'edit':'inscription';?>"/>
                    <img class="w-25 h-25 logo " src="<?=WEB_ROUTE.'image/logo.png'?>" alt="logo">
                     <div class=" ml-5 tout">
                       <div class="form-group ml-5 w-75 text-left">
-                        <label for="">Login</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
+                        <label for="">Nom & Prenom</label>
+                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" >
                         <small id="helpId" class="form-text text-muted"></small>
                       </div>
                       <div class="form-group ml-5 w-75 text-left">
-                        <label for="">Login</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
-                        <small id="helpId" class="form-text text-muted"></small>
+                        <label for="">Sexe</label>
+                        <select class="form-control primary" name="">
+                          <option class="text-center">Entrer votre sexe</option>
+                          <option class="color">Homme</option>
+                          <option class="color">Femme</option>
+                        </select>
                       </div>
-                      <div class="form-group ml-5 w-75 text-left">
-                        <label for="">Login</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
+                     
+                      <div class="form-group ml-5 w-75 text-left"
+                        <label for="">Telephone</label>
+                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" >
                         <small id="helpId" class="form-text text-muted"></small>
                       </div>
                       <div class="form-group ml-5  w-75 text-left ">
-                        <label for="">Password</label>
-                        <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
+                        <label for="">Adresse</label>
+                        <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" >
                         <small id="helpId" class="form-text text-muted"></small>
                       </div>
                       <label for="" class="ml-5 mb-3">Antecedant Medicaux</label>
@@ -56,25 +71,25 @@
 
                         </div>
                         <div class="form-group ml-5 mt-4 w-75 text-left ">
-                            <label for="">Password</label>
-                            <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
+                            <label for="">login</label>
+                            <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" >
                             <small id="helpId" class="form-text text-muted"></small>
                       </div>
                       <div class="row ml-1 marge">
                             <div class="form-group ml-5 mt-4 text-left ">
                                 <label for="">Password</label>
-                                <input type="text" class="form-control primary w " name="" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
+                                <input type="password" class="form-control primary w " name="" id="password" aria-describedby="helpId" >
                                 <small id="helpId" class="form-text text-muted"></small>
                             </div>
                             <div class="form-group ml-5 mt-4  text-left ">
-                                <label for="" class="marges">Password</label>
-                                <input type="text" class="form-control primary we" name="" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
+                                <label for="" class="marges">Confirm Password</label>
+                                <input type="password" class="form-control primary we" name="" id="password" aria-describedby="helpId" >
                                 <small id="helpId" class="form-text text-muted"></small>
                             </div>
                     </div>
                     <div class="form-group ml-5 w-75 text-left">
-                        <label for="">Login</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
+                        <label for="">Avatar</label>
+                        <input type="file" class="form-control primary " name="" id="login" aria-describedby="helpId" >
                         <small id="helpId" class="form-text text-muted"></small>
                       </div>
 

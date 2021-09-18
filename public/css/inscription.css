@@ -38,6 +38,7 @@ body{
     color: #00BFFF;
 }
 
+
 #password::placeholder{
     color: #00BFFF;
 }
@@ -110,4 +111,9 @@ body{
 .w{
     width: 140%;
   
+}
+
+
+.color{
+  color: #00BFFF;
 }
