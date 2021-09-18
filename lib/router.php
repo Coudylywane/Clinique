@@ -7,7 +7,9 @@ if (isset($_REQUEST['controlleurs'])) {
     }elseif ($_REQUEST['controlleurs']=='patient') {
         require_once(ROUTE_DIR.'controlleurs/patient.controlleurs.php');
     }elseif ($_REQUEST['controlleurs']=='responsable.prestation') {
-        require_once(ROUTE_DIR.'controlleurs/responsable.prestation.controlleurs.php');
+        require_once(ROUTE_DIR.'controlleurs/responsable_prestation.controlleurs.php');
+    }elseif ($_REQUEST['controlleurs']=='secretaire') {
+        require_once(ROUTE_DIR.'controlleurs/secretaire.controlleurs.php');
     }
    
 }else {

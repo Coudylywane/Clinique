@@ -1,3 +1,11 @@
+<?php 
+
+if (isset($_SESSION['arrayError'])) {
+  $arrayError=$_SESSION['arrayError'];
+  unset($_SESSION['arrayError']);
+}
+
+?>
 <?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
   
 <body>
@@ -17,21 +25,31 @@
               </style>
               <div class="col-md-6 text-center center">
                 <form action="<?=WEB_ROUTE?>" method="post">
-                
-                   <img class="logo mt-3 " src="image/logo.png" alt="">
+                      <input type="hidden" name="controlleurs" value="security"/>
+                      <input type="hidden" name="action" value="connexion"/>
+                   <img class="logo mt-3 ml-5" src="image/logo.png" alt="">
+                   <?php if (isset($arrayError['erreurConnexion'])):?>
+                            <div class="alert alert-primary " role="alert">
+                            <strong><?php echo isset($arrayError['erreurConnexion']) ? $arrayError['erreurConnexion']: '';?> </strong>
+                            </div>
+                            <?php endif ?>
                     <div class="mt-5 ml-5">
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Login</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
-                        <small id="helpId" class="form-text text-muted">Help text</small>
+                        <input type="text" class="form-control primary " name="login" id="login" aria-describedby="helpId" placeholder="Entrer votre email">
+                        <small class="form-text text-danger">
+                          <?php echo isset($arrayError['login']) ? $arrayError['login']: '';?> 
+                        </small>
                       </div>
                       <div class="form-group ml-5  w-75 text-left ">
                         <label for="">Password</label>
-                        <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
-                        <small id="helpId" class="form-text text-muted">Help text</small>
+                        <input type="password" class="form-control primary" name="password" id="password" aria-describedby="helpId" placeholder="Entrer votre mot de passe">
+                        <small class="form-text text-danger">
+                          <?php echo isset($arrayError['password']) ? $arrayError['password']: '';?> 
+                        </small>                      
                       </div>
                     </div>
-                    <button type="submit" class="btn">Se connecter</button>
+                    <button type="submit" class="btnn primary" name="btn_submit">Se connecter</button>
                    <a href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>" iprclass="ml-5 compte">Creer compte</a>
                 </form>
         
