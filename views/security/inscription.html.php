@@ -80,8 +80,9 @@
 
                     </div>
                     <div class="text-center ">
-                        <button type="submit" class="btn">Se connecter</button>
-                        <a href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>" iprclass="ml-5 compte">Creer compte</a>
+                        <button type="submit" class="btn" name="valider">Valider</button>
+                        <button type="submit" class="bouton" name="annuler">Annuler</button>
+                       
                     </div>
                     </form>
         
