@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
        if ($_GET['view']=='connexion') {
         require(ROUTE_DIR.'views/security/connexion.html.php');
        }elseif($_GET['view']=='inscription') {
-        require(ROUTE_DIR.'views/security/creer.compte.html.php');
+        require(ROUTE_DIR.'views/security/inscription.html.php');
        }
     }else {
         require(ROUTE_DIR.'views/security/connexion.html.php');

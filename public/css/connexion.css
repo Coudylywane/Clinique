@@ -1,0 +1,65 @@
+body{
+    overflow-x: hidden;
+  }
+  
+
+  img{
+    vertical-align: middle;
+    border-style: none;
+    width: 857px;
+    height: 901px;
+  }
+  .logo{
+    vertical-align: middle;
+    border-style: none;
+    width: 200px;
+    height: 200px;
+    
+  }
+  
+  .hhhh{
+   height: 900px;
+  }
+  @media screen and (max-width:767px) {
+  .image{
+  display: none;
+   }
+   body{
+    overflow-x: hidden;
+  }
+  }
+
+  .center{
+    margin-top: 10%;
+  }
+
+  
+  #login::placeholder{
+    color: #00BFFF;
+}
+
+#password::placeholder{
+    color: #00BFFF;
+}
+   
+.primary{
+ border: solid 1px #00BFFF;
+}
+
+.btn {
+  background-color: #00BFFF;
+  border-radius: 5px;
+  color: white;
+ 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+ margin-left: -15%;
+ 
+}
+
+.compte{
+  color: #00BFFF;
+}
