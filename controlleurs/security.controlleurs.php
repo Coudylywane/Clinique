@@ -13,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     if (isset($_POST['action'])) {
        if ($_POST['action']=='connexion') {
            connexion($_POST['login'],$_POST['password']);
+       }elseif ($_POST['action']=='inscription') {
+        unset($_POST['valider']);
+        unset($_POST['controlleurs']);
+        unset($_POST['action']);
+        inscription($_POST, $_FILES);
        }
 }
 }
@@ -53,6 +58,47 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
            header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
            exit();
        }
+    }
+
+
+
+    function inscription( array $data, array $files):void{
+        $arrayError=array();
+        extract($data);
+         valide_login($login,'login',$arrayError);
+         valide_password($password,'password',$arrayError);
+         valide_nom($nom,'nom',$arrayError);
+         valide_telephone($telephone,'telephone',$arrayError);
+         valide_sexe($telephone,'telephone',$arrayError);
+         valide_adresse($telephone,'telephone',$arrayError);
+         if (form_valid($arrayError)) {
+           $user= find_login($login);
+           if (count($user)!=0) {
+            $arrayError['login']='le login existe deja';
+            $_SESSION['arrayError']=$arrayError;
+             header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
+             exit();
+           }else {
+          insert_user($data);
+          /* foreach ($medicaux as $medical) {
+            $antecedant=[
+              $medicaux
+            ]; */
+            insert_antecedant_medicaux($data);
+             
+
+            header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
+            exit();
+           
+           
+
+           }
+           
+         }else {
+             $_SESSION['arrayError']=$arrayError;
+             header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
+             exit();
+    }
     }
 
 ?>

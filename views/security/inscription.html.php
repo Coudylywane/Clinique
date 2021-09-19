@@ -26,70 +26,79 @@ if (isset($_SESSION['arrayError'])) {
                     <div class=" ml-5 tout">
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Nom & Prenom</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" >
-                        <small id="helpId" class="form-text text-muted"></small>
+                        <input type="text" class="form-control primary " name="nom" id="login" aria-describedby="helpId" >
+                        <small class="form-text text-danger">
+                          <?php echo isset($arrayError['nom']) ? $arrayError['nom']: '';?> 
+                        </small>
                       </div>
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Sexe</label>
-                        <select class="form-control primary" name="">
+                        <select class="form-control primary" name="sexe">
                           <option class="text-center">Entrer votre sexe</option>
                           <option class="color">Homme</option>
                           <option class="color">Femme</option>
                         </select>
                       </div>
                      
-                      <div class="form-group ml-5 w-75 text-left"
+                      <div class="form-group ml-5 w-75 text-left">
                         <label for="">Telephone</label>
-                        <input type="text" class="form-control primary " name="" id="login" aria-describedby="helpId" >
-                        <small id="helpId" class="form-text text-muted"></small>
+                        <input type="text" class="form-control primary " name="telephone" id="login" aria-describedby="helpId" >
+                        <small class="form-text text-danger">
+                          <?php echo isset($arrayError['telephone']) ? $arrayError['telephone']: '';?> 
+                        </small>
                       </div>
                       <div class="form-group ml-5  w-75 text-left ">
                         <label for="">Adresse</label>
-                        <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" >
-                        <small id="helpId" class="form-text text-muted"></small>
+                        <input type="text" class="form-control primary" name="adresse" id="password" aria-describedby="helpId" >
+                        <small class="form-text text-danger">
+                          <?php echo isset($arrayError['adresse']) ? $arrayError['adresse']: '';?> 
+                        </small>
                       </div>
                       <label for="" class="ml-5 mb-3">Antecedant Medicaux</label>
                         <div class="row ml-5">
                             <div class="form-check ml-3">
                                 <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="" id="" value="checkedValue" checked>
+                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue" >
                                     Diabete
                                 </label>
                             </div>
                             <div class="form-check ml-3">
                                 <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="" id="" value="checkedValue" checked>
+                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue">
                                    Hypertension
                                 </label>
                             </div>
                             <div class="form-check ml-3">
                                 <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="" id="" value="checkedValue" >
+                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue" >
                                     Hepatite
                                 </label>
                             </div>
-
                         </div>
                         <div class="form-group ml-5 mt-4 w-75 text-left ">
                             <label for="">login</label>
-                            <input type="text" class="form-control primary" name="" id="password" aria-describedby="helpId" >
-                            <small id="helpId" class="form-text text-muted"></small>
+                            <input type="text" class="form-control primary" name="login" id="password" aria-describedby="helpId" >
+                            <small class="form-text text-danger">
+                          <?php echo isset($arrayError['login']) ? $arrayError['login']: '';?> 
+                        </small>
                       </div>
                       <div class="row ml-1 marge">
                             <div class="form-group ml-5 mt-4 text-left ">
                                 <label for="">Password</label>
-                                <input type="password" class="form-control primary w " name="" id="password" aria-describedby="helpId" >
-                                <small id="helpId" class="form-text text-muted"></small>
+                                <input type="password" class="form-control primary w" name="password" id="password" aria-describedby="helpId" >
+                                <small class="form-text text-danger">
+                          <?php echo isset($arrayError['password']) ? $arrayError['password']: '';?> 
+                        </small>
                             </div>
                             <div class="form-group ml-5 mt-4  text-left ">
                                 <label for="" class="marges">Confirm Password</label>
-                                <input type="password" class="form-control primary we" name="" id="password" aria-describedby="helpId" >
+                                <input type="password" class="form-control primary we" name="password2" id="password" aria-describedby="helpId" >
                                 <small id="helpId" class="form-text text-muted"></small>
                             </div>
                     </div>
                     <div class="form-group ml-5 w-75 text-left">
                         <label for="">Avatar</label>
-                        <input type="file" class="form-control primary " name="" id="login" aria-describedby="helpId" >
+                        <input type="file" class="form-control primary " name="avatar" id="login" aria-describedby="helpId" >
                         <small id="helpId" class="form-text text-muted"></small>
                       </div>
 

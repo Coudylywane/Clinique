@@ -45,6 +45,68 @@ function valide_password(string $password , string $key , array &$arrayError):vo
     }
 }
 
+// nom valid 
+
+
+function validation_nom($nom):bool{
+    if (preg_match(PATTERN_NAME,$nom)) {
+       return true;
+    }
+    return false ;
+}
+
+function valide_nom(string $nom , string $key , array &$arrayError):void{
+    if (est_vide($nom)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }elseif (!validation_nom($nom)) {
+        $arrayError[$key]="le nom et le prenom ne sont pas valide ";
+    }
+}
+
+// telephone valid 
+
+
+function validation_telephone($telephone):bool{
+    if (preg_match(PATTERN_TELEPHONE,$telephone)) {
+       return true;
+    }
+    return false ;
+}
+
+function valide_telephone(string $telephone , string $key , array &$arrayError):void{
+    if (est_vide($telephone)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }elseif (!validation_password($telephone)) {
+        $arrayError[$key]="le n'est pas valide ";
+    }
+}
+
+// SEXE valid 
+
+function validation_sexe($telephone):bool{
+    if (preg_match(PATTERN_TELEPHONE,$telephone)) {
+       return true;
+    }
+    return false ;
+}
+
+function valide_sexe(string $sexe , string $key , array &$arrayError):void{
+    if (est_vide($sexe)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }elseif (!validation_password($sexe)) {
+        $arrayError[$key]="le n'est pas valide ";
+    }
+}
+
+// adresse valid 
+
+
+
+function valide_adresse(string $adresse , string $key , array &$arrayError):void{
+    if (est_vide($adresse)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }
+}
 
 
 

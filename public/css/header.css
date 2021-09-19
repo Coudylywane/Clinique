@@ -1,0 +1,28 @@
+.slogan{
+    margin-top: 4%;
+    margin-left: 20%;
+}
+
+.slogan1{
+    margin-top: 6%;
+   margin-left: -21%;
+}
+
+.primary{
+    border: solid 1px #00BFFF;
+   }
+
+   .prendre {
+    background-color: #00BFFF;
+    border-radius: 5px;
+    color: white;
+   
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+   margin-left: 15%;
+   margin-top: -55%;
+  
+   
+  }
