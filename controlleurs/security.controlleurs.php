@@ -4,6 +4,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
        if ($_GET['view']=='connexion') {
         require(ROUTE_DIR.'views/security/connexion.html.php');
        }elseif($_GET['view']=='inscription') {
+        $antecedants=find_all_antecedant();
         require(ROUTE_DIR.'views/security/inscription.html.php');
        }
     }else {
@@ -76,22 +77,18 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
            if (count($user)!=0) {
             $arrayError['login']='le login existe deja';
             $_SESSION['arrayError']=$arrayError;
+            
              header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
              exit();
            }else {
-          insert_user($data);
-          /* foreach ($medicaux as $medical) {
-            $antecedant=[
-              $medicaux
-            ]; */
-            insert_antecedant_medicaux($data);
-             
-
-            header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
+              $id_patient=insert_user($data);
+               //$id_user=insert_user( $user);
+               foreach ($medicaux as $medical) {
+                $id_antecedant_medicaux=(int)$medical;
+                insert_user_antecedant($id_patient,$id_antecedant_medicaux);
+              } 
+              header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
             exit();
-           
-           
-
            }
            
          }else {
@@ -100,5 +97,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
              exit();
     }
     }
+
+
+    
 
 ?>

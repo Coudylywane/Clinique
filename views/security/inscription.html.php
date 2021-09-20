@@ -18,7 +18,7 @@ if (isset($_SESSION['arrayError'])) {
                 
               </style>
               <div class="col-md-6 ">
-                <form action="<?=WEB_ROUTE?>" method="post">
+                <form action="<?=WEB_ROUTE?>" method="post"  enctype="multipart/form-data">
                       <input type="hidden" name="controlleurs" value="security"/>
                       <input type="hidden" name="action" value="inscription"/>
                       <input type="hidden" name="action" value="<?= isset($user['id'])?'edit':'inscription';?>"/>
@@ -34,9 +34,9 @@ if (isset($_SESSION['arrayError'])) {
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Sexe</label>
                         <select class="form-control primary" name="sexe">
-                          <option class="text-center">Entrer votre sexe</option>
-                          <option class="color">Homme</option>
-                          <option class="color">Femme</option>
+                          <option class="text-center" value="">Entrer votre sexe</option>
+                          <option class="color" value="homme">Homme</option>
+                          <option class="color" value="femme">Femme</option>
                         </select>
                       </div>
                      
@@ -57,27 +57,19 @@ if (isset($_SESSION['arrayError'])) {
                       <label for="" class="ml-5 mb-3">Antecedant Medicaux</label>
                         <div class="row ml-5">
                             <div class="form-check ml-3">
-                                <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue" >
-                                    Diabete
-                                </label>
-                            </div>
-                            <div class="form-check ml-3">
-                                <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue">
-                                   Hypertension
-                                </label>
-                            </div>
-                            <div class="form-check ml-3">
-                                <label class="form-check-label ">
-                                    <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="checkedValue" >
-                                    Hepatite
-                                </label>
+                            <?php foreach ($antecedants as $antecedant):?>
+                                <div class="row">
+                                  <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="<?=$antecedant['id_antecedant_medecaux']?>">
+                                  <?=$antecedant['nom_antecedant_medecaux']?>
+                                  </label>
+                                </div>
+                                <?php endforeach?>
                             </div>
                         </div>
                         <div class="form-group ml-5 mt-4 w-75 text-left ">
-                            <label for="">login</label>
-                            <input type="text" class="form-control primary" name="login" id="password" aria-describedby="helpId" >
+                            <label for="">Login</label>
+                             <input type="text" class="form-control primary" name="login" id="password" aria-describedby="helpId" >
                             <small class="form-text text-danger">
                           <?php echo isset($arrayError['login']) ? $arrayError['login']: '';?> 
                         </small>
@@ -99,7 +91,11 @@ if (isset($_SESSION['arrayError'])) {
                     <div class="form-group ml-5 w-75 text-left">
                         <label for="">Avatar</label>
                         <input type="file" class="form-control primary " name="avatar" id="login" aria-describedby="helpId" >
-                        <small id="helpId" class="form-text text-muted"></small>
+                        <?php if(isset($arrayError['avatar'])): ?>
+                        <small id="imagelHelp" class="form-text text-muted">
+                            <?= $arrayError['avatar'] ?>
+                        </small>
+                <?php endif; ?>
                       </div>
 
                     </div>

@@ -1,5 +1,16 @@
 <?php
 
+function find_all_antecedant():array{
+	$pdo= ouvrir_connection_bd();
+	$sql="select * from antecedant_medicaux";
+	$sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+	$sth->execute();
+	$datas = $sth->fetchAll();
+	fermer_connection_bd($pdo);
+	return $datas;
+}
+
+
 function find_login(string $login):array{
     $pdo=ouvrir_connection_bd();
     $sql="select * from user u where u.login_user=? ";
@@ -43,56 +54,18 @@ function insert_user(array $user):int{
 
 
 
-function insert_antecedant_medicaux(array $antecedantMedicaux):int{
-   $pdo= ouvrir_connection_bd();
-   extract($antecedantMedicaux);
-   $sql="INSERT INTO `antecedant_medicaux` (`nom_antecedant_medicaux`)
-    VALUES (?);
-    ";
-   $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-   $sth->execute($medicaux);
-   $dernier_id = $pdo->lastInsertId();
-   fermer_connection_bd($pdo);//fermeture
-   return $dernier_id ;
-}
 
-/* function insert_user_medicaux( $userMedicaux):int{
+  function insert_user_antecedant(int $id_patient , int $id_antecedant_medicaux ){
     $pdo= ouvrir_connection_bd();
-    $sql="INSERT INTO `user_antecedant_medicaux` (`id_user, id_antecedant_medicaux`)
-     VALUES (?,?);
-     ";
-    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute(
-        $_SESSION['userConnect']['id_user'],
-        $id_antecedant_medicaux=insert_antecedant_medicaux($medicaux));
+	$sql="INSERT INTO `user_antecedant_medicaux`(`id_patient`, `id_antecedant_medicaux`) VALUES (?,?);";
+	$sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_patient ,$id_antecedant_medicaux]);
     $dernier_id = $pdo->lastInsertId();
     fermer_connection_bd($pdo);//fermeture
     return $dernier_id ;
- } */
+ } 
 
 
- /* function add_bien(array $post):void{
-    //`etat_bien`, `type_bien`, `reference`, `prix`, `description_bien`, `id_zone`, `date_creation`, `addresse`, `id_user`
-         extract($post);
-        $bien=[
-          "Disponible",
-           $type,
-           uniqid(),
-           $prix,
-           $description,
-           $zone,
-           date_format(date_create(),'Y-m-d H:i:s'),
-           $adresse,
-           $_SESSION['userConnect']['id_user']
-        ];
-        $id_bien=insert_bien( $bien);
-        foreach ($avatar as $file) {
-            $image=[
-               $file,
-               $id_bien
-            ];
-            insert_image($image);
-        }
-        
-        show_form_bien();
-    } */
+ 
+
+ 
