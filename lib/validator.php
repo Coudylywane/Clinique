@@ -59,7 +59,7 @@ function valide_nom(string $nom , string $key , array &$arrayError):void{
     if (est_vide($nom)) {
       $arrayError[$key]='le champ est obligatoire';
     }elseif (!validation_nom($nom)) {
-        $arrayError[$key]="le nom et le prenom ne sont pas valide ";
+        $arrayError[$key]="le nom ou le prenom n'est pas valide  ";
     }
 }
 

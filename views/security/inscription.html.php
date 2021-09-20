@@ -90,12 +90,12 @@ if (isset($_SESSION['arrayError'])) {
                     </div>
                     <div class="form-group ml-5 w-75 text-left">
                         <label for="">Avatar</label>
-                        <input type="file" class="form-control primary " name="avatar" id="login" aria-describedby="helpId" >
+                        <input type="file" class="form-control primary " name="avatar" id="login" aria-describedby="helpId" value="Upload Image">
                         <?php if(isset($arrayError['avatar'])): ?>
-                        <small id="imagelHelp" class="form-text text-muted">
+                        <small id="imagelHelp" class="form-text text-danger">
                             <?= $arrayError['avatar'] ?>
                         </small>
-                <?php endif; ?>
+                       <?php endif; ?>
                       </div>
 
                     </div>

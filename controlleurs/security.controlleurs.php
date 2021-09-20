@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         
         $user = find_user_by_login_password($login , $password);
         if (count($user)==0) {
-            $arrayError['erreurConnexion']="login ou password incorrect ";
             $_SESSION['arrayError']= $arrayError;
             header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
             exit();
@@ -76,17 +75,34 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
            $user= find_login($login);
            if (count($user)!=0) {
             $arrayError['login']='le login existe deja';
+            $arrayError['erreurConnexion']="login ou password incorrect ";
+            
             $_SESSION['arrayError']=$arrayError;
             
              header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
              exit();
            }else {
+            $target_dir = "upload/";
+            $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
+            $data['avatar']= $target_file ;
               $id_patient=insert_user($data);
                //$id_user=insert_user( $user);
                foreach ($medicaux as $medical) {
                 $id_antecedant_medicaux=(int)$medical;
                 insert_user_antecedant($id_patient,$id_antecedant_medicaux);
               } 
+              
+              valide_image($_FILES, $arrayError, 'avatar', $target_file);
+              //upload_image($_FILES, $target_file);
+             
+              if(count($arrayError) == 0) {
+                  if(!upload_image($_FILES, $target_file)) {
+                      $arrayError['avatar'] = "Erreur lors de l'upload de l'image";
+                      $_SESSION['arrayError']=$arrayError;
+                      header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
+                      exit();
+                }
+              }
               header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
             exit();
            }
