@@ -57,7 +57,7 @@
 
 
 
-                <a class=" nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=deconnexion'?>"><i class="bi bi-box-arrow-in-left image"></i>SE DECONNECTER</a>
+                <a class=" nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=deconnexion'?>"><i class="bi bi-box-arrow-in-left image"></i>Se deconnecter</a>
             </div>
 
 

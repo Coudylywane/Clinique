@@ -9,7 +9,11 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
             lister_consultation_un_client();  
         }elseif ($_GET['view']=='mes.prestations') { 
             lister_prestation_un_client();
-            }
+        }elseif ($_GET['view']=='prendre_rendez_vous') { 
+            require(ROUTE_DIR.'views/patient/prendre_rendez_vous.html.php');   
+  
+        }
+
 
         }
 }else {
@@ -31,8 +35,9 @@ function lister_rendez_vous_un_client(array $data=null){
     if (is_null($data)) {
         $rendezs=find_all_rendez_vous_by_patient($id_user);
     }else {
+       
         extract($data);
-        $rendezs=find_all_rendez_vous_by_date_by_etat_type($etat , $data , $type);
+        $rendezs=find_all_rendez_vous_by_date_by_etat_type( $id_user,$etat ,$type,$date);
     }
     require(ROUTE_DIR.'views/patient/mes.rendez-vous.html.php');   
     }
@@ -55,7 +60,11 @@ function lister_rendez_vous_un_client(array $data=null){
     
 
 
-
+function prendre_rendez_vous(){
+    $id_user=$_SESSION['userConnect']['id_user'];
+    $prendres= insert_rendez_vous($id_user);
+    require(ROUTE_DIR.'views/patient/prendre_rendez_vous.html.php');   
+}
 
 
 

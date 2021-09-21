@@ -1,8 +1,8 @@
 <?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
 <?php require_once(ROUTE_DIR.'views/inc/menu0.html.php')?>
-
-<button type="submit" class=" primary prendre" name="btn_submit"><i class="bi bi-plus-square-fill"></i> Prendre Rendez-vous</button>
-<div class="row">
+<a href="<?= WEB_ROUTE.'?controlleurs=patient&view=prendre_rendez_vous'?>" class=" primary prendre" > <i class="bi bi-plus-square-fill"></i> Prendre Rendez-vous</a>
+<!-- <button type="submit" class=" primary prendre" name="btn_submit"><i class="bi bi-plus-square-fill"></i> Prendre Rendez-vous</button>
+ --><div class="row">
     <div class="col-md-4">
         <?php require_once(ROUTE_DIR.'views/inc/menu.html.php')?>
     </div>
@@ -10,9 +10,9 @@
 <div class="row">
 
     <div class="col-md-offset-3">
-     <form class="form-inline" method="POST">
-     <input type="hidden" class="form-control" name="controlleurs" id="inputName" value="patient" placeholder="">
-       <input type="hidden" class="form-control" name="action" id="inputName" value="filtre.rendezvous" placeholder="">
+     <form class="form-inline" action="<?=WEB_ROUTE?>" method="POST">
+     <input type="hidden" class="form-control" name="controlleurs" value="patient" placeholder="">
+       <input type="hidden" class="form-control" name="action"  value="filtre.rendezvous" placeholder="">
        <div class="row ">
          <div class="form-group ml-4">
              <label for="">Date</label>
@@ -29,7 +29,7 @@
          </div>
          <div class="form-group ml-4">
               <label for="">Type Rendez-vous</label>
-              <select class="form-control ml-4" name="etat" id="">
+              <select class="form-control ml-4" name="type" id="">
                 <option value="consultation">Consultation</option>
                 <option value="prestation">Prestation</option>
               </select>
