@@ -6,6 +6,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
        }elseif($_GET['view']=='inscription') {
         $antecedants=find_all_antecedant();
         require(ROUTE_DIR.'views/security/inscription.html.php');
+       }elseif($_GET['view']=='deconnexion') {
+        deconnexion();
+        require(ROUTE_DIR.'views/security/connexion.html.php');
        }
     }else {
         require(ROUTE_DIR.'views/security/connexion.html.php');
@@ -18,6 +21,12 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         unset($_POST['valider']);
         unset($_POST['controlleurs']);
         unset($_POST['action']);
+        $nom=$_SESSION['nom'];
+        $sexe=$_SESSION['sexe'];
+        $telephone=$_SESSION['telephone'];
+        $adresse=$_SESSION['adresse'];
+        $medicaux=$_SESSION['medicaux'];
+        $login=$_SESSION['login'];
         inscription($_POST, $_FILES);
        }
 }
@@ -71,6 +80,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
          valide_telephone($telephone,'telephone',$arrayError);
          valide_sexe($telephone,'telephone',$arrayError);
          valide_adresse($telephone,'telephone',$arrayError);
+         if ($password!=$password2) {
+           $arrayError['password2']="les deux mots de passe ne sont pas identiques";
+          }
          if (form_valid($arrayError)) {
            $user= find_login($login);
            if (count($user)!=0) {
@@ -114,7 +126,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     }
     }
 
-
+    function deconnexion():void{
+      unset ($_SESSION['userConnect']);
+  }
     
 
 ?>

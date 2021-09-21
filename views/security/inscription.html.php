@@ -85,7 +85,9 @@ if (isset($_SESSION['arrayError'])) {
                             <div class="form-group ml-5 mt-4  text-left ">
                                 <label for="" class="marges">Confirm Password</label>
                                 <input type="password" class="form-control primary we" name="password2" id="password" aria-describedby="helpId" >
-                                <small id="helpId" class="form-text text-muted"></small>
+                                <small class="form-text text-danger">
+                          <?php echo isset($arrayError['password2']) ? $arrayError['password2']: '';?> 
+                        </small>
                             </div>
                     </div>
                     <div class="form-group ml-5 w-75 text-left">
