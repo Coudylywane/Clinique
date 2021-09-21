@@ -12,7 +12,7 @@
       
         <ul class="nav flex-column mr-auto mt-2 mt-lg-0">
             <div class="profile">
-            <img class="logo mt-3 ml-5" src="upload/MCDTD5.png" alt="">
+            <img class="logo mt-3 ml-5" src="upload/masque.png" alt="">
             <h6 class="text-center">Nom & Prenom</h6>
 
             <?php if (est_patient()):?>

@@ -2,10 +2,10 @@
 function valide_image(array $files, array &$arrayError, string $key, $target_file): void {
     
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    if($imageFileType != "png" && $imageFileType != "jpeg") {
+    if($imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "jpg") {
         $arrayError[$key] = "Veuillez choisir une image png ou jpeg";
-    } elseif ($files['avatar']['size'] > 500000) {
-        $arrayError[$key] = "La taille de l'image ne doit pas dépasser 500KB";
+    } elseif ($files['avatar']['size'] > 1200000) {
+        $arrayError[$key] = "La taille de l'image ne doit pas dépasser 1,2MB";
     }
 }
 
