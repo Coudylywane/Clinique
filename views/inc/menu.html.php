@@ -12,21 +12,21 @@
       
         <ul class="nav flex-column mr-auto mt-2 mt-lg-0">
             <div class="profile">
-            <img class="logo mt-3 ml-5" src="upload/masque.png" alt="">
+            <img class="logos mt-3 ml-5" src="upload/masque.png" alt="">
             <h6 class="text-center">Nom & Prenom</h6>
 
             <?php if (est_patient()):?>
                 <li class="nav-item active">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=liste.question'?>"><i class="bi bi-card-list image"></i>Mes Rendez-vous</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.rendez-vous'?>"><i class="bi bi-list-ul image"></i>Mes Rendez-vous</a>
                    
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=creer.question'?>"><i class="bi bi-card-list image"></i>Mes Consultations</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.consultations'?>"><i class="bi bi-list-ul image"></i>Mes Consultations</a>
                     
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=liste.joueur'?>"><i class="bi bi-card-list image"></i>Mes Prestations</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.prestations'?>"><i class="bi bi-list-ul image"></i>Mes Prestations</a>
                     
                 </li>
             <?php endif?>
@@ -57,7 +57,7 @@
 
 
 
-                <a class=" nav-link text-light text-center" href="<?= WEB_ROUTE.'?controlleurs=security&view=deconnexion'?>">SE DECONNECTER</a>
+                <a class=" nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=deconnexion'?>"><i class="bi bi-box-arrow-in-left image"></i>SE DECONNECTER</a>
             </div>
 
 
@@ -75,14 +75,14 @@
         height: 652px;
         width: 310px; 
         border-radius: 3%;
-        background-color:#00BFFF;
-        opacity: 0.5;
+        background-color:#80DFFE;
+      
     }
     .image{
         float: left;
         color: white;
-        width: 25px;
-        height: 25px;
+        width: 40px;
+        height: 40px;
        
         
     }
@@ -96,7 +96,7 @@ nav{
     color: black;
 }
 .nav-item a:hover{
-    background-color: black;
+    background-color: grey;
 }
 
     

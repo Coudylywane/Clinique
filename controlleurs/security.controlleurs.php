@@ -21,12 +21,6 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         unset($_POST['valider']);
         unset($_POST['controlleurs']);
         unset($_POST['action']);
-        $nom=$_SESSION['nom'];
-        $sexe=$_SESSION['sexe'];
-        $telephone=$_SESSION['telephone'];
-        $adresse=$_SESSION['adresse'];
-        $medicaux=$_SESSION['medicaux'];
-        $login=$_SESSION['login'];
         inscription($_POST, $_FILES);
        }
 }
@@ -79,16 +73,14 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
          valide_nom($nom,'nom',$arrayError);
          valide_telephone($telephone,'telephone',$arrayError);
          valide_sexe($telephone,'telephone',$arrayError);
-         valide_adresse($telephone,'telephone',$arrayError);
+         valide_adresse($telephone,'adresse',$arrayError);
          if ($password!=$password2) {
            $arrayError['password2']="les deux mots de passe ne sont pas identiques";
           }
          if (form_valid($arrayError)) {
            $user= find_login($login);
            if (count($user)!=0) {
-            $arrayError['login']='le login existe deja';
-            $arrayError['erreurConnexion']="login ou password incorrect ";
-            
+            $arrayError['login']='le login existe deja';            
             $_SESSION['arrayError']=$arrayError;
             
              header('location:'.WEB_ROUTE.'?controlleurs=security&view=inscription');
@@ -107,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
               valide_image($_FILES, $arrayError, 'avatar', $target_file);
               //upload_image($_FILES, $target_file);
              
-              if(count($arrayError) == 0) {
+                if(count($arrayError) == 0) {
                   if(!upload_image($_FILES, $target_file)) {
                       $arrayError['avatar'] = "Erreur lors de l'upload de l'image";
                       $_SESSION['arrayError']=$arrayError;

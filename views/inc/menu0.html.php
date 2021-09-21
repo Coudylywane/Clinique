@@ -22,9 +22,6 @@
                 <?php endif?>
             </div>
             <div>
-            <?php if (est_patient()):?>
-            <button type="submit" class=" primary prendre" name="btn_submit"><i class="bi bi-plus-square-fill"></i> Prendre Rendez-vous</button>
-            <?php endif?>
             <?php if (est_medecin()):?>
             <button type="submit" class=" primary prendre " name="btn_submit"><i class="bi bi-plus-square-fill"></i> Planifier Rendez-vous</button>
             <?php endif?>
