@@ -34,7 +34,6 @@ function find_user_by_login_password( $login ,  $password):array{
     $sth->execute(array($login,$password));
     $user = $sth->fetch();
     fermer_connection_bd($pdo);
-
     return $user== false?[]: $user ;
 }
 

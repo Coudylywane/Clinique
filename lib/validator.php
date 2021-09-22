@@ -110,12 +110,22 @@ function valide_adresse(string $adresse , string $key , array &$arrayError):void
 
 
 
+// date valid
+
+function valide_date(string $date , string $key , array &$arrayError):void{
+    if (est_vide($date)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }
+}
+
+// heure valid
 
 
-
-
-
-
+function valide_heure(string $heure , string $key , array &$arrayError):void{
+    if (est_vide($heure)) {
+      $arrayError[$key]='le champ est obligatoire';
+    }
+}
 
 
 

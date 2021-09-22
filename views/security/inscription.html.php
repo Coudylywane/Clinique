@@ -1,5 +1,4 @@
 <?php 
-
 if (isset($_SESSION['arrayError'])) {
    $arrayError=$_SESSION['arrayError'];
    unset($_SESSION['arrayError']);
@@ -26,7 +25,7 @@ if (isset($_SESSION['arrayError'])) {
                     <div class=" ml-5 tout">
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Nom & Prenom</label>
-                        <input type="text" class="form-control primary " name="nom" id="login" aria-describedby="helpId" >
+                        <input type="text" class="form-control primary " name="nom" id="login" aria-describedby="helpId" value="<?=isset($_SESSION['restore'])?$_SESSION['restore']['nom']:''?>">
                         <small class="form-text text-danger">
                           <?php echo isset($arrayError['nom']) ? $arrayError['nom']: '';?> 
                         </small>
@@ -42,14 +41,14 @@ if (isset($_SESSION['arrayError'])) {
                      
                       <div class="form-group ml-5 w-75 text-left">
                         <label for="">Telephone</label>
-                        <input type="text" class="form-control primary " name="telephone" id="login" aria-describedby="helpId" >
+                        <input type="text" class="form-control primary " name="telephone" id="login" aria-describedby="helpId" value="<?=isset($_SESSION['restore'])?$_SESSION['restore']['telephone']:''?>">
                         <small class="form-text text-danger">
                           <?php echo isset($arrayError['telephone']) ? $arrayError['telephone']: '';?> 
                         </small>
                       </div>
                       <div class="form-group ml-5  w-75 text-left ">
                         <label for="">Adresse</label>
-                        <input type="text" class="form-control primary" name="adresse" id="password" aria-describedby="helpId" >
+                        <input type="text" class="form-control primary" name="adresse" id="password" aria-describedby="helpId" value="<?=isset($_SESSION['restore'])?$_SESSION['restore']['adresse']:''?>">
                         <small class="form-text text-danger">
                           <?php echo isset($arrayError['adresse']) ? $arrayError['adresse']: '';?> 
                         </small>
@@ -60,7 +59,7 @@ if (isset($_SESSION['arrayError'])) {
                             <?php foreach ($antecedants as $antecedant):?>
                                 <div class="row">
                                   <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="<?=$antecedant['id_antecedant_medecaux']?>">
+                                  <input type="checkbox" class="form-check-input " name="medicaux[]" id="" value="<?=$antecedant['id_antecedant_medecaux']?>" value="<?=isset($_SESSION['restore'])?$_SESSION['restore']['medicaux[]']:''?>">
                                   <?=$antecedant['nom_antecedant_medecaux']?>
                                   </label>
                                 </div>
@@ -69,7 +68,7 @@ if (isset($_SESSION['arrayError'])) {
                         </div>
                         <div class="form-group ml-5 mt-4 w-75 text-left ">
                             <label for="">Login</label>
-                             <input type="text" class="form-control primary" name="login" id="password" aria-describedby="helpId" >
+                             <input type="text" class="form-control primary" name="login" id="password" aria-describedby="helpId"  value="<?=isset($_SESSION['restore'])?$_SESSION['restore']['login']:''?>">
                             <small class="form-text text-danger">
                           <?php echo isset($arrayError['login']) ? $arrayError['login']: '';?> 
                         </small>
@@ -111,8 +110,9 @@ if (isset($_SESSION['arrayError'])) {
               </div>
             </div>
          </div>
-    
+        <?php  unset($_SESSION['restore']) ?>
          <?php require_once(ROUTE_DIR.'views/inc/footer.html.php')?> 
+         
 <style>
   .image{
    background-image: url('image/3.png');

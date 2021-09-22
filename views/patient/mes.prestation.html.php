@@ -13,14 +13,19 @@
        <input type="hidden" class="form-control" name="action" id="inputName" value="filtre.prestation" placeholder="">
        <div class="row ">
        <div class="form-group ml-4">
+             <label for="">Date</label>
+             <input type="date" name="date" id="" class="form-control ml-4" placeholder="" aria-describedby="helpId">
+         </div>
+       <div class="form-group ml-4">
               <label for="">Etat</label>
               <select class="form-control ml-4" name="etat" id="">
-                <option value="valider">Deja fait</option>
-                <option value="annuler">Pas fait</option>
+                <option value="deja fait">Deja fait</option>
+                <option value="pas fait">Pas fait</option>
               </select>
-              <button type="submit" class="btn btn-primary ml-4 ">ok</button>
+              <button type="submit" class="btn btn-primary ml-4 submit ">ok</button>
 
          </div>
+         
          </div>
      </form>
     </div>
@@ -32,6 +37,7 @@
     <tr>
       <th scope="col">Nom prestation</th>
       <th scope="col">Etat Prestation</th>
+      <th scope="col">Date Prestation</th>
     </tr>
   </thead>
   <tbody>
@@ -39,6 +45,7 @@
   <tr>
     <td><?= $prestation['nom_prestation']?></td>
      <td><?=$prestation['etat_prestation']?></td>
+     <td><?=date_format(date_create($prestation['date_prestation']),'d-m-Y')?></td>
   </tr>
   <?php endforeach?>
   </tbody>
@@ -56,10 +63,9 @@
 
   <style>
 
-.ml-4, .mx-4 {
-    margin-left: 2.5rem !important;
-
-}
+.submit{
+   width: 45px;
+ }
 
 
 .tab{

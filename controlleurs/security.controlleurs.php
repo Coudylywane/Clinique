@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         unset($_POST['valider']);
         unset($_POST['controlleurs']);
         unset($_POST['action']);
+        $_SESSION['restore']=$_POST;
+
         inscription($_POST, $_FILES);
        }
 }
