@@ -1,0 +1,22 @@
+<?php 
+
+if (isset($_SESSION['arrayError'])) {
+   $arrayError=$_SESSION['arrayError'];
+   unset($_SESSION['arrayError']);
+}
+?>
+
+<?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
+  
+<body>
+    
+         <div>
+              <div class="container">
+               
+        
+              </div>
+            </div>
+         </div>
+    
+         <?php require_once(ROUTE_DIR.'views/inc/footer.html.php')?> 
+

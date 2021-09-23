@@ -2,11 +2,9 @@
 
 
 <div class="container-fluid">
-            <div class="row">
-                <img class="logo mt-3 ml-5" src="image/logo.png" alt="">
-
+            <div class="row ">
                 <?php if (est_patient()):?>
-                <h3 class="slogan"> Il faut avoir beaucoup de patience pour apprendre a etre patient</h3>
+                <h3 class="slogan">Liste des Rendez-vous</h3>
                 <?php endif?>
 
                 <?php if (est_medecin()):?>

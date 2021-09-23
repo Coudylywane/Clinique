@@ -12,5 +12,9 @@
     <link rel="stylesheet" href="<?= WEB_ROUTE.'css/inscription.css'?>">
     <link rel="stylesheet" href="<?= WEB_ROUTE.'css/header.css'?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   </head>
+  <body style="background-color: #f4f6f9;">
+  
+    
+ 

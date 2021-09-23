@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         }elseif ($_GET['view']=='mes.prestations') { 
             lister_prestation_un_client();
         }elseif ($_GET['view']=='prendre_rendez_vous') { 
+            $title_page='Nouveau Rendez-vous';
             $type_rendezvous=find_all_type_medecin();
             require(ROUTE_DIR.'views/patient/prendre_rendez_vous.html.php');   
   
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 
 
 function lister_rendez_vous_un_client(array $data=null){
+    $title_page='Liste des Rendez-vous';
     $id_user=$_SESSION['userConnect']['id_user'];
     if (is_null($data)) {
         $rendezs=find_all_rendez_vous_by_patient($id_user);
@@ -52,6 +54,7 @@ function lister_rendez_vous_un_client(array $data=null){
 ///// consultation
 
     function lister_consultation_un_client(array $data=null){
+        $title_page='Liste des Consultations';
         $id_user=$_SESSION['userConnect']['id_user'];
         if (is_null($data)) {
             $consultations=find_all_consultation_by_patient($id_user);
@@ -66,6 +69,7 @@ function lister_rendez_vous_un_client(array $data=null){
         
 ///// prestations
 function lister_prestation_un_client(array $data=null){
+    $title_page='Liste des Prestations';
     $id_user=$_SESSION['userConnect']['id_user'];
     if (is_null($data)) {
         $prestations=find_all_prestation_by_patient($id_user);
@@ -89,6 +93,12 @@ function prendre_rendez_vous( array $data):void{
      if (form_valid($arrayError)) {
         $id_patient=$_SESSION['userConnect']['id_user'];
         $data['id_patient']= $id_patient;
+        if (est_medecin($data['id_patient'])) {
+            $data['medecin']=$id_patient;
+        }else {
+            $data['medecin']=null;
+        }
+        $data['type_medecin']= empty($data['type_medecin'])? null : $data['type_medecin'];
         $prendres=insert_rendez_vous($data);
         header('location:'.WEB_ROUTE.'?controlleurs=patient&view=mes.rendez-vous');
         exit();

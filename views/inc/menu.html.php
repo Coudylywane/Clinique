@@ -9,11 +9,14 @@
     </button>
    
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-      
         <ul class="nav flex-column mr-auto mt-2 mt-lg-0">
             <div class="profile">
+            <div class="row">
+                <img class="logo mt-3 ml-5" src="image/logo.png" alt="">
+                <h5 class="mt-5 text-light" style="font-style: italic;">COUDY'S CLINIC</h5>
+            </div>
             <img class="logos mt-3 ml-5" src="upload/masque.png" alt="">
-            <h6 class="text-center">Nom & Prenom</h6>
+            <h6 class="text-center text-light">Nom & Prenom</h6>
 
             <?php if (est_patient()):?>
                 <li class="nav-item active">
@@ -72,12 +75,12 @@
 
 <style>
     .profile{
-        height: 652px;
-        width: 310px; 
-        border-radius: 3%;
-        background-color:#80DFFE;
-      
-    }
+        margin-top: -35%;
+    height: 960px;
+    width: 310px;
+    background-color: #1e293b;
+    margin-right: 2%;
+}
     .image{
         float: left;
         color: white;
@@ -96,7 +99,7 @@ nav{
     color: black;
 }
 .nav-item a:hover{
-    background-color: grey;
+    background-color:#00BFFF ;
 }
 
     

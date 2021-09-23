@@ -13,14 +13,37 @@
    }
 
    .prendre {
-    background-color: #00BFFF;
+    background-color: #1e293b;
     border-radius: 5px;
     color: white;
     text-decoration: none;
      display: inline-block;
     font-size: 16px;
-    margin-left: 45%; 
+    margin-left: 58%; 
+    width: 10%;
+
   
   
    
   }
+
+
+  .ml-4, .mx-4 {
+    margin-left: 2.5rem !important;
+
+}
+
+
+
+
+
+.liste{
+  margin-left: 18%;
+}
+
+
+ .tab{
+margin-top: -5%;
+width: 1490px;
+
+ }

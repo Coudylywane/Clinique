@@ -10,10 +10,13 @@ body{
     height: 901px;
   }
   .logo{
+    position: relative;
+    left: -15%;
     vertical-align: middle;
     border-style: none;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
+
     
   }
 

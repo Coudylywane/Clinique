@@ -27,7 +27,7 @@ if (isset($_SESSION['arrayError'])) {
                 <form action="<?=WEB_ROUTE?>" method="post">
                       <input type="hidden" name="controlleurs" value="security"/>
                       <input type="hidden" name="action" value="connexion"/>
-                   <img class="logo mt-3 ml-5" src="image/logo.png" alt="">
+                   <img class="logo mt-3 ml-5" src="image/logo.png" alt="" style="width: 200px; height:200px; margin-top:-12%;">
                    <?php if (isset($arrayError['erreurConnexion'])):?>
                             <div class="alert alert-primary " role="alert">
                             <strong><?php echo isset($arrayError['erreurConnexion']) ? $arrayError['erreurConnexion']: '';?> </strong>
