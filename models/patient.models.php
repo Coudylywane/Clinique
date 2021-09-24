@@ -93,7 +93,34 @@ function find_all_consultation_by_date_or_etat($patient,$etat_consultation, $dat
 /// rendez_vous et filtre
 
 
-function find_all_rendez_vous_by_date_by_etat_type($id_patient,$etat_rendezvous ,$type_rendezvous ,$date):array{
+function find_all_rendez_vous_by_date_by_etat_type($id_patient,$etat_rendezvous ,$type_rendezvous ,$date,$offset):array{
+    $pdo=ouvrir_connection_bd();
+    $params=array($id_patient,$etat_rendezvous , $type_rendezvous);
+    
+    $sql="select * from rendezvous r , user u 
+        where
+        u.id_user=r.id_patient
+        and
+        r.id_patient=? 
+        and
+        r.etat_rendezvous like ? 
+         and
+        r.type_rendezvous like ? 
+        ";
+       if (!empty($date)) {
+          $sql .= ' and date_rendezvous like ?';
+         $params[]=$date;
+       } 
+       $sql .=" limit $offset,".NOMBRE_PAR_PAGE; 
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute($params);
+    $reservation = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $reservation ;
+}
+
+
+function count_rendez_vous_by_date_by_etat_type($id_patient,$etat_rendezvous ,$type_rendezvous ,$date):int{
     $pdo=ouvrir_connection_bd();
     $params=array($id_patient,$etat_rendezvous , $type_rendezvous);
     
@@ -113,11 +140,10 @@ function find_all_rendez_vous_by_date_by_etat_type($id_patient,$etat_rendezvous 
        }  
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute($params);
-    $reservation = $sth->fetchAll();
-    fermer_connection_bd($pdo);
-    return $reservation ;
-}
 
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
 
 
 function insert_rendez_vous( $rendez):int{
@@ -138,18 +164,35 @@ function insert_rendez_vous( $rendez):int{
     return $dernier_id;
 }
 
-function find_all_rendez_vous_by_patient(int $id_patient):array{
+function find_all_rendez_vous_by_patient(int $id_patient,int $offset=0):array{
     $pdo=ouvrir_connection_bd();
     $sql = "select * from rendezvous r , user u 
     where 
         u.id_user=r.id_patient
         and 
-        r.id_patient=? ";
+        r.id_patient=?  limit $offset,".NOMBRE_PAR_PAGE;
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute([$id_patient]);
     $rendezvouss = $sth->fetchAll();
     fermer_connection_bd($pdo);
-    return $rendezvouss ;
+    return [
+       "data" => $rendezvouss,
+       "count" => $sth->rowCount()
+      ] ;
+}
+
+function count_rendez_vous_by_patient(int $id_patient):int{
+    $pdo=ouvrir_connection_bd();
+    $sql = "select * from rendezvous r , user u 
+    where 
+        u.id_user=r.id_patient
+        and 
+        r.id_patient=?";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_patient]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+    
 }
 
 
@@ -167,6 +210,54 @@ function find_all_type_medecin():array{
 
 
 
+
+/// pagination
+
+
+
+
+    
+ /* function nbre_article( $id_patient,$currentPage){
+	    $pdo= ouvrir_connection_bd();
+        $sql ="SELECT COUNT(*) AS nb_articles FROM rendezvous r , user u 
+        where 
+            u.id_user=r.id_patient
+            and 
+            r.id_patient=?";
+	$sth =$pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute($id_patient);
+        $result = $sth->fetch();
+        $nbArticles = (int) $result['nb_articles'];
+        $parPage = 3;
+        $pages = ceil($nbArticles / $parPage);
+        $premier = ($currentPage * $parPage) - $parPage;
+        fermer_connection_bd($pdo);
+
+        return $result;
+
+
+
+
+
+    }
+    function nombre_page($premier, $parPage){
+        $pdo = ouvrir_connection_bd();
+        $sql = 'SELECT * FROM `rendezvous`r ,user u 
+        where 
+            u.id_user=r.id_patient
+            and 
+            r.id_patient=?
+        ORDER BY `date_rendezvous` DESC LIMIT 5;
+        ';
+        $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->bindValue(':premier', $premier, PDO::PARAM_INT);
+        $sth->bindValue(':parpage', $parPage, PDO::PARAM_INT);
+        $sth->execute([$premier , $parPage]);
+        $articles = $sth->fetchAll(PDO::FETCH_ASSOC);
+        fermer_connection_bd($pdo);
+
+    } */
+ 
 
 
 

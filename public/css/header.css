@@ -47,3 +47,29 @@ margin-top: -5%;
 width: 1490px;
 
  }
+
+
+ .btns{
+  background-color: #1e293b;
+  border-radius: 5px; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  width: 50%;
+ 
+}
+
+.btnss{
+  background-color:  #00BFFF;
+  border-radius: 5px; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  width: 35%;
+  margin-left: 35px;
+ 
+}

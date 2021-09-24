@@ -15,8 +15,8 @@
                 <img class="logo mt-3 ml-5" src="image/logo.png" alt="">
                 <h5 class="mt-5 text-light" style="font-style: italic;">COUDY'S CLINIC</h5>
             </div>
-            <img class="logos mt-3 ml-5" src="upload/masque.png" alt="">
-            <h6 class="text-center text-light">Nom & Prenom</h6>
+            <img class="logos mt-3 ml-5" src="<?= $_SESSION['userConnect']['avatar']?>" alt="">
+            <h6 class="text-center text-light"><?= $_SESSION['userConnect']['nom & prenom']?></h6>
 
             <?php if (est_patient()):?>
                 <li class="nav-item active">
@@ -35,25 +35,28 @@
             <?php endif?>
             <?php if (est_medecin()):?>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>"><i class="bi bi-card-list image"></i>Liste Rendez-vous</a> 
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.rendez-vous'?>"><i class="bi bi-list-ul image"></i>Liste Rendez-vous</a> 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=liste.admin'?>"><i class="bi bi-card-list image"></i>Listes Consultations</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=liste.admin'?>"><i class="bi bi-list-ul image"></i>Listes Consultations</a>
                 </li>
            
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"><i class="bi bi-list-ul image"></i></i>Liste des Patients</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"> <i class="bi bi-bar-chart-fill image"></i>Tableau de bord</a>
                 </li>
             <?php endif?>
             <?php if (est_secretaire()):?>
             <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>"><i class="bi bi-card-list image"></i>Liste Rendez-vous</a> 
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous'?>"><i class="bi bi-list-ul image"></i>Liste Rendez-vous</a> 
             </li>
             <?php endif?>
 
             <?php if (est_responsable_prestation()):?>
             <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>"><i class="bi bi-card-list image"></i>Liste Prestations</a> 
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=liste.prestation'?>"><i class="bi bi-list-ul image"></i>Liste Prestations</a> 
             </li>
             <?php endif?>
 

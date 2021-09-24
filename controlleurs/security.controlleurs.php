@@ -89,8 +89,17 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
              exit();
            }else {
             $target_dir = "upload/";
-            $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
-            $data['avatar']= $target_file ;
+          
+            if(empty($base_name)){
+              $target_file = $target_dir;
+              $data['avatar']= $target_dir."masque.png" ;
+            }else{
+              $base_name= basename($_FILES["avatar"]["name"]); 
+              $target_file = $target_dir .$base_name;
+              $data['avatar']= $target_file ;
+            }
+            
+
               $id_patient=insert_user($data);
                //$id_user=insert_user( $user);
                foreach ($medicaux as $medical) {

@@ -22,7 +22,7 @@
       <div class="card tab ml-5 ">
           <div class="card-header">
             <div class="row">
-            <form class="form-inline" method="POST">
+            <form class="form-inline" method="POST" action="">
                 <input type="hidden" class="form-control" name="controlleurs" id="inputName" value="patient" placeholder="">
                 <input type="hidden" class="form-control" name="action" id="inputName" value="filtre.consultation" placeholder="">
                 <div class="row">

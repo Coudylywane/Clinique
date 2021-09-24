@@ -42,11 +42,24 @@ function lister_rendez_vous_un_client(array $data=null){
     $title_page='Liste des Rendez-vous';
     $id_user=$_SESSION['userConnect']['id_user'];
     if (is_null($data)) {
-        $rendezs=find_all_rendez_vous_by_patient($id_user);
+        $count=count_rendez_vous_by_patient($id_user); 
+        $parPage = NOMBRE_PAR_PAGE;
+        $currentPage=isset($_GET['page'])?$_GET['page']:1;
+        $pages = ceil($count/ $parPage);
+        $premier = ($currentPage * $parPage) - $parPage;
+        $rows=find_all_rendez_vous_by_patient($id_user,$premier);
+        $rendezs= $rows['data'];
+       
+
     }else {
        
         extract($data);
-        $rendezs=find_all_rendez_vous_by_date_by_etat_type( $id_user,$etat,$type,$date);
+        $count=count_rendez_vous_by_date_by_etat_type($id_user,$etat,$type,$date); 
+        $parPage = NOMBRE_PAR_PAGE;
+        $currentPage=isset($_GET['page'])?$_GET['page']:1;
+        $pages = ceil($count/ $parPage);
+        $premier = ($currentPage * $parPage) - $parPage;
+        $rendezs=find_all_rendez_vous_by_date_by_etat_type( $id_user,$etat,$type,$date,$premier);
     }
     require(ROUTE_DIR.'views/patient/mes.rendez-vous.html.php');   
     }
@@ -112,7 +125,14 @@ function prendre_rendez_vous( array $data):void{
 
 
 
+/// pagination
 
+
+/* function pagination_rendezvous(){
+    $id_user=$_SESSION['userConnect']['id_user'];
+    $pagination= pagination($id_user,5);
+    $paginations= nombre_page(1,5);
+} */
 
 
 

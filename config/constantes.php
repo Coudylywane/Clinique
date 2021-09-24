@@ -7,6 +7,6 @@ define('USER_BD', 'root');
 define('PASSWORD_BD','coudylywane');
 define('CHAINE_DE_CONNECTION','mysql:dbname=gestion_clinique;host='.HOST_BD);
 define('UPLOAD_IMAGE',ROUTE_DIR.'public/img/uploods/');
-define('NOMBRE_PAR_PAGE',5);
+define('NOMBRE_PAR_PAGE',3);
 
 ?>
