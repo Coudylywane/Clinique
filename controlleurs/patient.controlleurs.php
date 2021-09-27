@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     if ($_SERVER['REQUEST_METHOD']=='POST'){
         if (isset($_POST['action'])){
             if ($_POST['action']=='filtre.rendezvous') {
-               lister_rendez_vous_un_client($_POST); 
+               lister_rendez_vous_un_client($_POST);
             }elseif ($_POST['action']=='prendre_rendez_vous') {
                 prendre_rendez_vous($_POST);
             }elseif ($_POST['action']=='filtre.consultation') {
@@ -70,30 +70,51 @@ function lister_rendez_vous_un_client(array $data=null){
         $title_page='Liste des Consultations';
         $id_user=$_SESSION['userConnect']['id_user'];
         if (is_null($data)) {
-            $consultations=find_all_consultation_by_patient($id_user);
+                $count=count_all_consultation_by_patient($id_user); 
+                $parPage = NOMBRE_PAR_PAGE;
+                $currentPage=isset($_GET['page'])?$_GET['page']:1;
+                $pages = ceil($count/ $parPage);
+                $premier = ($currentPage * $parPage) - $parPage;
+                $rows=find_all_consultation_by_patient($id_user,$premier);
+                $consultations= $rows['data'];
         }else {
-           
             extract($data);
-            $consultations=find_all_consultation_by_date_or_etat($id_user,$etat,$date);
+            $count=count_all_consultation_by_date_or_etat($id_user,$etat,$date,$premier); 
+            $parPage = NOMBRE_PAR_PAGE;
+            $currentPage=isset($_GET['page'])?$_GET['page']:1;
+            $pages = ceil($count/ $parPage);
+            $premier = ($currentPage * $parPage) - $parPage;
+            $consultations=find_all_consultation_by_date_or_etat( $id_user,$etat,$date,$premier);
         }
         require(ROUTE_DIR.'views/patient/mes.consultations.html.php');   
         }
        
-        
 ///// prestations
 function lister_prestation_un_client(array $data=null){
     $title_page='Liste des Prestations';
     $id_user=$_SESSION['userConnect']['id_user'];
     if (is_null($data)) {
-        $prestations=find_all_prestation_by_patient($id_user);
+        $count=count_all_prestation_by_patient($id_user); 
+        $parPage = NOMBRE_PAR_PAGE;
+        $currentPage=isset($_GET['page'])?$_GET['page']:1;
+        $pages = ceil($count/ $parPage);
+        $premier = ($currentPage * $parPage) - $parPage;
+        $rows=find_all_prestation_by_patient($id_user,$premier);
+        $prestations= $rows['data'];
     }else {
-       
         extract($data);
-        $prestations=find_all_prestation_by_date_or_etat($id_user,$etat,$date);
+        $count=count_all_prestation_by_date_or_etat($id_user,$etat,$type,$date); 
+        $parPage = NOMBRE_PAR_PAGE;
+        $currentPage=isset($_GET['page'])?$_GET['page']:1;
+        $pages = ceil($count/ $parPage);
+        $premier = ($currentPage * $parPage) - $parPage;
+        $prestations=find_all_prestation_by_date_or_etat( $id_user,$etat,$date,$premier);
     }
     require(ROUTE_DIR.'views/patient/mes.prestation.html.php');  
 }      
-    
+   
+
+ 
 
 
 
@@ -125,14 +146,7 @@ function prendre_rendez_vous( array $data):void{
 
 
 
-/// pagination
 
-
-/* function pagination_rendezvous(){
-    $id_user=$_SESSION['userConnect']['id_user'];
-    $pagination= pagination($id_user,5);
-    $paginations= nombre_page(1,5);
-} */
 
 
 

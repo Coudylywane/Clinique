@@ -50,7 +50,9 @@ if (isset($_SESSION['arrayError'])) {
                       </div>
                     </div>
                     <button type="submit" class="btnn primary" name="btn_submit">Se connecter</button>
-                   <a href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>" iprclass="ml-5 compte">Creer compte</a>
+                    <div class="compte">
+                        <a href="<?= WEB_ROUTE.'?controlleurs=security&view=inscription'?>" style="margin-top: 25px;">Creer compte</a>
+                   </div>
                 </form>
         
               </div>
@@ -63,4 +65,6 @@ if (isset($_SESSION['arrayError'])) {
    background-image: url('image/3.png');
 
   }
+
+  
 </style>

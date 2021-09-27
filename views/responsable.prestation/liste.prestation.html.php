@@ -23,8 +23,8 @@
           <div class="card-header">
             <div class="row">
             <form class="form-inline" method="POST">
-              <input type="hidden" class="form-control" name="controlleurs" id="inputName" value="patient" placeholder="">
-              <input type="hidden" class="form-control" name="action" id="inputName" value="filtre.prestation" placeholder="">
+              <input type="hidden" class="form-control" name="controlleurs" id="inputName" value="responsable.prestation" placeholder="">
+              <input type="hidden" class="form-control" name="action" id="inputName" value="filtre.les.prestations" placeholder="">
               <div class="row ">
               <div class="form-group ml-4">
                     <label for="">Date</label>
@@ -76,12 +76,17 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+              <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=liste.prestation&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
+                  </li>
+                   <?php for($i=1;$i<=$pages;$i++):?>
+                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=liste.prestation&page='.$i?>"><?=$i?></a></li>
+                  <?php endfor ?>
+                 
+                       <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=liste.prestation&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
+                        </li>
                 </ul>
               </div>
             </div>

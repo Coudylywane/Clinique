@@ -56,11 +56,11 @@ body{
 }
    
 .primary{
- border: solid 1px #00BFFF;
+ border: solid 1px #1e293b;
 }
 
 .btnn {
-  background-color: #00BFFF;
+  background-color: #1e293b;
   border-radius: 5px;
   color: white;
  
@@ -75,5 +75,6 @@ body{
 }
 
 .compte{
-  color: #00BFFF;
+  position: relative;
+  top: 30px;
 }

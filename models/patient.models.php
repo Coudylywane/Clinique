@@ -2,20 +2,37 @@
 
 // prestation et filtre
 
-function find_all_prestation_by_patient(int $id_patient):array{
+function find_all_prestation_by_patient(int $id_patient , int $offset=0):array{
     $pdo=ouvrir_connection_bd();
     $sql = "select * from prestation p , rendezvous r
      where r.id_rendezvous=p.id_rendezvous 
-    and r.id_patient= ?
-    ";
+    and r.id_patient= ? limit $offset,".NOMBRE_PAR_PAGE;
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute([$id_patient]);
     $prestations= $sth->fetchAll();
     fermer_connection_bd($pdo);
-    return $prestations ;
+    return [
+        "data" => $prestations,
+        "count" => $sth->rowCount()
+       ] ;
 }
 
-function find_all_prestation_by_date_or_etat($patient,$etat_consultation, $date):array{
+function count_all_prestation_by_patient(int $id_patient ):int{
+    $pdo=ouvrir_connection_bd();
+    $sql = "select * from prestation p , rendezvous r
+     where r.id_rendezvous=p.id_rendezvous 
+    and r.id_patient= ?
+    ;";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_patient]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
+
+
+
+
+function find_all_prestation_by_date_or_etat($patient,$etat_consultation, $date, int $offset):array{
     $pdo=ouvrir_connection_bd();
     $params=array($patient,$etat_consultation);
     $sql="select * from prestation p , rendezvous r
@@ -30,13 +47,37 @@ function find_all_prestation_by_date_or_etat($patient,$etat_consultation, $date)
           p.date_prestation like ?';
           $params[]=$date;
        }
-        
+       $sql .=" limit $offset,".NOMBRE_PAR_PAGE; 
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute($params);
     $prestations = $sth->fetchAll();
     fermer_connection_bd($pdo);
     return $prestations ;
 }
+
+function count_all_prestation_by_date_or_etat($patient,$etat_consultation, $date):int{
+    $pdo=ouvrir_connection_bd();
+    $params=array($patient,$etat_consultation);
+    $sql="select * from prestation p , rendezvous r
+        where 
+        r.id_rendezvous=p.id_rendezvous 
+        and 
+        r.id_patient= ?
+        and
+        p.etat_prestation like ? ";
+       if (!empty($date)) {
+          $sql .= 'and
+          p.date_prestation like ?';
+          $params[]=$date;
+       }
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute($params);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount() ;
+}
+
+
+
 
 
 
@@ -46,20 +87,63 @@ function find_all_prestation_by_date_or_etat($patient,$etat_consultation, $date)
 //// consultation et filtre
 
 
-function find_all_consultation_by_patient(int $id_patient):array{
+function find_all_consultation_by_patient(int $id_patient , int $offset=0):array{
     $pdo=ouvrir_connection_bd();
     $sql = "select * from consultation c , rendezvous r
      where r.id_rendezvous=c.id_rendezvous 
-    and r.id_patient= ?
-    ";
+    and r.id_patient= ? limit $offset,".NOMBRE_PAR_PAGE;
+    
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute([$id_patient]);
     $consultations= $sth->fetchAll();
     fermer_connection_bd($pdo);
+    return [
+        "data" => $consultations,
+        "count" => $sth->rowCount()
+       ] ;
+}
+
+// count
+function count_all_consultation_by_patient(int $id_patient):int{
+    $pdo=ouvrir_connection_bd();
+    $sql = "select * from consultation c , rendezvous r
+     where r.id_rendezvous=c.id_rendezvous 
+    and r.id_patient= ? 
+    ;";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_patient]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
+
+
+function find_all_consultation_by_date_or_etat($patient,$etat_consultation, $date ,$offset ):array{
+    $pdo=ouvrir_connection_bd();
+    $params=array($patient,$etat_consultation);
+    $sql="select * from consultation c , rendezvous r
+        where 
+        r.id_rendezvous=c.id_rendezvous 
+        and 
+        r.id_patient= ?
+        and
+        c.etat_consultation like ? ";
+       if (!empty($date)) {
+          $sql .= 'and
+          c.date_consultation like ?';
+          $params[]=$date;
+       }
+       $sql .=" limit $offset,".NOMBRE_PAR_PAGE; 
+        
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute($params);
+    $consultations = $sth->fetchAll();
+    fermer_connection_bd($pdo);
     return $consultations ;
 }
 
-function find_all_consultation_by_date_or_etat($patient,$etat_consultation, $date):array{
+//count
+
+function count_all_consultation_by_date_or_etat($patient,$etat_consultation, $date):int{
     $pdo=ouvrir_connection_bd();
     $params=array($patient,$etat_consultation);
     $sql="select * from consultation c , rendezvous r
@@ -77,15 +161,9 @@ function find_all_consultation_by_date_or_etat($patient,$etat_consultation, $dat
         
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute($params);
-    $consultations = $sth->fetchAll();
     fermer_connection_bd($pdo);
-    return $consultations ;
+    return  $sth->rowCount() ;
 }
-
-
-
-
-
 
 
 
@@ -140,7 +218,6 @@ function count_rendez_vous_by_date_by_etat_type($id_patient,$etat_rendezvous ,$t
        }  
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute($params);
-
     fermer_connection_bd($pdo);
     return $sth->rowCount();
 }

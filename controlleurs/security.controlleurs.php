@@ -108,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
               } 
               
               valide_image($_FILES, $arrayError, 'avatar', $target_file);
-              //upload_image($_FILES, $target_file);
-             
+              header('location:'.WEB_ROUTE.'?controlleurs=security&view=connexion');
+              exit();
                 if(count($arrayError) == 0) {
                   if(!upload_image($_FILES, $target_file)) {
                       $arrayError['avatar'] = "Erreur lors de l'upload de l'image";

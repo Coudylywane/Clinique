@@ -77,7 +77,7 @@
                           <td><?=ucfirst($vous['etat_rendezvous'])?></td>
                           <td><?=ucfirst($vous['nom_type_medecin'])?></td> 
                           <td >
-                            <a href="<?= WEB_ROUTE.'?controlleurs=patient&view=prendre_rendez_vous'?>" class="text-light btns"><i class="bi bi-link"></i> Traiter</a>
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$vous['id_rendezvous']?>" class="text-light btns"><i class="bi bi-link"></i> Traiter</a>
                         </td>
                         </tr>
                       <?php endforeach?>
@@ -85,12 +85,17 @@
                 </table>
               </div>
               <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+              <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
+                  </li>
+                   <?php for($i=1;$i<=$pages;$i++):?>
+                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.$i?>"><?=$i?></a></li>
+                  <?php endfor ?>
+                 
+                       <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
+                        </li>
                 </ul>
               </div>
             </div>

@@ -79,7 +79,7 @@
 <style>
     .profile{
         margin-top: -35%;
-    height: 960px;
+    height: 991px;
     width: 310px;
     background-color: #1e293b;
     margin-right: 2%;

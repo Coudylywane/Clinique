@@ -71,12 +71,18 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+              <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.consultations&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
+                  </li>
+                   <?php for($i=1;$i<=$pages;$i++):?>
+                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.consultations&page='.$i?>"><?=$i?></a></li>
+                  <?php endfor ?>
+                 
+                       <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.consultations&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
+                        </li>
+                </ul>
                 </ul>
               </div>
             </div>

@@ -101,9 +101,10 @@ if (isset($_SESSION['arrayError'])) {
 
                     </div>
                     <div class="text-center ">
-                        <button type="submit" class="btn" name="valider">Valider</button>
-                        <button type="submit" class="bouton" name="annuler">Annuler</button>
-                       
+                        <button type="submit" class="btn text-light" name="valider">Valider</button>
+                    <div class="comptes">
+                        <a href="<?= WEB_ROUTE.'?controlleurs=security&view=connexion'?>" style="margin-top: 25px;">Se connecter</a>
+                   </div>                       
                     </div>
                     </form>
         
@@ -117,5 +118,10 @@ if (isset($_SESSION['arrayError'])) {
   .image{
    background-image: url('image/3.png');
 
+  }
+
+  .comptes{
+    position: relative;
+    top: 10px;
   }
 </style>
