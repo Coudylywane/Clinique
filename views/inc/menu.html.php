@@ -35,10 +35,7 @@
             <?php endif?>
             <?php if (est_medecin()):?>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.rendez-vous'?>"><i class="bi bi-list-ul image"></i>Liste Rendez-vous</a> 
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=liste.admin'?>"><i class="bi bi-list-ul image"></i>Listes Consultations</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation'?>"><i class="bi bi-list-ul image"></i>Listes Consultations</a>
                 </li>
            
                 <li class="nav-item">

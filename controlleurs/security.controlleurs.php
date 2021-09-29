@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
           }else{
               $_SESSION['userConnect']=$user;
               if ($user['nom_role']=='medecin') {
-                header('location:'.WEB_ROUTE.'?controlleurs=medecin&view=liste.rendez-vous');
+                header('location:'.WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation');
                 exit();
               }elseif($user['nom_role']=='patient') {
                 header('location:'.WEB_ROUTE.'?controlleurs=patient&view=mes.rendez-vous');

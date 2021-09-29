@@ -23,8 +23,8 @@
       <div class="card tab ml-5 ">
           <div class="card-header">
           <form class="form-inline" action="<?=WEB_ROUTE?>" method="POST">
-                  <input type="hidden" class="form-control" name="controlleurs" value="secretaire" placeholder="">
-                  <input type="hidden" class="form-control" name="action"  value="filtre.les.rendezvous" placeholder="">
+                  <input type="hidden" class="form-control" name="controlleurs" value="medecin" placeholder="">
+                  <input type="hidden" class="form-control" name="action"  value="filtre.consultation" placeholder="">
                       <div class="row inline">
                             <div class="form-group ml-4">
                                 <label for="">Date</label>
@@ -33,9 +33,9 @@
                             <div class="form-group ml-4">
                                 <label for="">Etat</label>
                                 <select class="form-control ml-4" name="etat" id="">
-                                    <option value="valider">Valider</option>
+                                    <option value="pas fait">Pas fait</option>
+                                    <option value="deja fait">Deja fait</option>
                                     <option value="annuler">Annuler</option>
-                                    <option value="en cour">En cour</option>
                                 </select>
                           </div>
                           <div class="form-group ml-4">
@@ -50,26 +50,27 @@
               <div class="card-body">
               <table class="table table-bordered">
                   <thead>
-   
                   <tr>
-                      <th scope="col" style="width: 15%;">Type Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Date Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Heure Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Etat Rendez-vous</th>
-                      <th scope="col" class="w-25">Type Medecin</th>
-                      <th scope="col" style="width: 20%;">Action</th>
+                      <th scope="col">Date Consultation</th>
+                      <th scope="col">Etat Consultation</th>
                   </tr>
                   </thead>
                   <tbody>
                       <?php foreach ($medecin_rendezvous as $key => $valous):?>
                         <tr>
-                          <td><?= ucfirst($valous['type_rendezvous'])?></td>
-                          <td><?=date_format(date_create($valous['date_rendezvous']),'d-m-Y')?></td>
-                          <td><?=date_format(date_create($valous['heure_rendezvous']),'h:i:s')?></td>
-                          <td><?=ucfirst($valous['etat_rendezvous'])?></td>
-                          <td><?=ucfirst($valous['nom_type_medecin'])?></td> 
-                          <td >
-                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btns"><i class="bi bi-link"></i> Traiter</a>
+                          <td><?=date_format(date_create($valous['date_consultation']),'d-m-Y')?></td>
+                          <td><?=ucfirst($valous['etat_consultation'])?></td>
+                          <td>
+                            <div class="row">
+                              <div class="col-m-6" style="margin-left: 20px;">
+                                <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btnss" style="width: 100%; margin_left:50px;"><i class="bi bi-link"></i> Consulter</a>
+                              </div>
+                              <div class="col-m-6">
+<!--                                  <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btns" style="width: 100%;margin-left:50px;"><i class="bi bi-link"></i> Annuler</a>
+ -->                                 <button type="submit" class="btns primary text-light" style="width: 100%;margin-left:50px;"> Annuler</button>
+                              </div>
+                            </div>
+                            
                         </td>
                         </tr>
                       <?php endforeach?>
@@ -77,18 +78,18 @@
                 </table>
               </div>
               <div class="card-footer clearfix">
-              <!-- <ul class="pagination pagination-sm m-0 float-right">
+              <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
+                            <a href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
                   </li>
                    <?php for($i=1;$i<=$pages;$i++):?>
-                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.$i?>"><?=$i?></a></li>
+                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation&page='.$i?>"><?=$i?></a></li>
                   <?php endfor ?>
                  
                        <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
-                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
+                            <a href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
                         </li>
-                </ul> -->
+                </ul> 
               </div>
             </div>
           </div>
