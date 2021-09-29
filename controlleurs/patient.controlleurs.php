@@ -122,6 +122,7 @@ function lister_prestation_un_client(array $data=null){
 function prendre_rendez_vous( array $data):void{
     $arrayError=array();
     extract($data);
+   
      valide_date($date,'date',$arrayError);
      valide_heure($heure,'heure',$arrayError);
      if (form_valid($arrayError)) {
@@ -133,6 +134,7 @@ function prendre_rendez_vous( array $data):void{
             $data['medecin']=null;
         }
         $data['type_medecin']= empty($data['type_medecin'])? null : $data['type_medecin'];
+        $data['nom_prestation']=empty($data['nom_prestation'])? null : $data['nom_prestation'];
         $prendres=insert_rendez_vous($data);
         header('location:'.WEB_ROUTE.'?controlleurs=patient&view=mes.rendez-vous');
         exit();

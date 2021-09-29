@@ -10,7 +10,7 @@ function form_valid($arrayError):bool{
     return false;
 }
 
-// login valid 
+// login valide 
 
 function validation_login($login):bool{
     if (preg_match(PATTERN_EMAIL,$login)) {

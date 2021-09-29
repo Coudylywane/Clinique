@@ -135,7 +135,7 @@ function count_all_rendez_vous_secretaire_by_date_by_etat_type($etat_rendezvous 
 
 
 
- function find_all_medecin_disponible():array{
+ function find_all_medecin_disponible(string $nom_type_medecin ,$date_rendezvous,$heure_rendezvous):array{
     $pdo=ouvrir_connection_bd();
     $sql = "SELECT * from user u , role r , type_medecin t 
     where 
@@ -143,7 +143,7 @@ function count_all_rendez_vous_secretaire_by_date_by_etat_type($etat_rendezvous 
     and
     u.id_type_medecin=t.id_type_medecin
     and
-    t.nom_type_medecin like 'generaliste'
+    t.nom_type_medecin like ?
     and
     u.id_user not in (
               SELECT u.id_user from rendezvous re , user u , role r , type_medecin t 
@@ -152,13 +152,16 @@ function count_all_rendez_vous_secretaire_by_date_by_etat_type($etat_rendezvous 
                     and 
                   u.id_type_medecin=t.id_type_medecin
                      and 
-                 re.date_rendezvous like '2021-08-05'
+                 re.date_rendezvous like ?
                     AND
-                 re.heure_rendezvous like '11:00'
+                 re.heure_rendezvous like ?
                );
     ";
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute();
+    $sth->execute([$nom_type_medecin,$date_rendezvous,$heure_rendezvous]);
+   /*  var_dump($date_rendezvous);
+    var_dump($heure_rendezvous);
+    die; */
     $medecinss= $sth->fetchAll();
     fermer_connection_bd($pdo);
     return $medecinss ;
@@ -174,7 +177,7 @@ function count_all_rendez_vous_secretaire_by_date_by_etat_type($etat_rendezvous 
 
 function find_all_detail_rendezvous(int $id_rendezvous):array{
     $pdo=ouvrir_connection_bd();
-    $sql = "select * from rendezvous r , type_medecin t , user u
+    $sql = "select * from rendezvous r , type_medecin t , user u 
     where 
     r.id_type_medecin=t.id_type_medecin
     and
@@ -190,29 +193,73 @@ function find_all_detail_rendezvous(int $id_rendezvous):array{
 }
 
 
+function find_all_detail_rendezvous2(int $id_rendezvous):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "select * from rendezvous r , user u 
+    where 
+    r.id_patient=u.id_user
+    and
+    r.id_rendezvous=?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_rendezvous]);
+    $rendezvous = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return  $rendezvous;
+}
+
+/// update 
+
+
+function update_etat_rendezvous(string $etat_rendezvous,  int $id_rendezvous):int{
+    $pdo=ouvrir_connection_bd();
+    $sql="UPDATE `rendezvous` 
+    SET 
+    `etat_rendezvous`= ? 
+    WHERE 
+    `rendezvous`.`id_rendezvous` = ?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$etat_rendezvous,$id_rendezvous]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
+
+
+// insert consultation
 
 
 
+function insert_consultation($date_rendezvous, $id_medecin, $id_rendezvous):int{
+    $pdo=ouvrir_connection_bd();
+    extract($rendez);
+    $sql="INSERT INTO `consultation` ( `date_consultation`, `etat_consultation`, `id_medecin`, 
+    `id_rendezvous`) VALUES 
+    (?, ?, ?, ?)
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$date_rendezvous,'pas fait',$id_medecin, $id_rendezvous]);
+    $dernier_id = $pdo->lastInsertId();
+    fermer_connection_bd($pdo);
+    return $dernier_id;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function insert_prestation($nom_prestation, $date, $id_rendezvous):int{
+    $pdo=ouvrir_connection_bd();
+    extract($rendez);
+    $sql="INSERT INTO `prestation` ( `nom_prestation`, `etat_prestation`, `date_prestation`, 
+    `id_rendezvous`) VALUES 
+    (?, ?, ?, ?);
+    ";
+        $date = date_create();
+        $date = date_format($date , 'Y-m-d H:i:s');
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$nom_prestation,'pas fait',$date, $id_rendezvous]);
+    $dernier_id = $pdo->lastInsertId();
+    fermer_connection_bd($pdo);
+    return $dernier_id;
+}
 
 
 

@@ -81,7 +81,6 @@
                             <a href="<?= WEB_ROUTE.'?controlleurs=patient&view=mes.prestations&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
                         </li>
                 </ul>
-                </ul>
               </div>
             </div>
           </div>

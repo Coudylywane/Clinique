@@ -9,11 +9,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         liste_medecin_disponible() ;   
     }
 
+}else {
+    require(ROUTE_DIR.'views/security/connexion.html.php');
 }
-
-
-
-
 
 
 
@@ -24,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
                liste_rendez_vous($_POST); 
             }elseif ($_POST['action']=='traiter_rendezvous') {
                 liste_medecin_disponible($_POST) ;   
+            }elseif ($_POST['action']=='valider_rendezvous') {
+                liste_rendez_vous(); 
             }
         }
     }
@@ -38,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 
 
 function liste_rendez_vous(array $data=null){
+    changer_etat($_POST);
+
 $title_page='Liste des Rendez-vous';
 $count=count_all_rendez_vous(); 
 $parPage = NOMBRE_PAR_PAGE;
@@ -63,6 +65,39 @@ function liste_medecin_disponible(){
     $title_page='Liste des medecin disponible';
     $id_rendezvous=$_GET['id_rendezvous'];
     $rendezvousdetail=find_all_detail_rendezvous($id_rendezvous);
-    $medecins=find_all_medecin_disponible();
-    require(ROUTE_DIR.'views/secretaire/traiter.rendezvous.html.php');  
+    if ($rendezvousdetail[0]["type_rendezvous"]=='consultation') {
+    $date_rendezvous=$rendezvousdetail[0]["date_rendezvous"];
+    $heure_rendezvous=substr($rendezvousdetail[0]["heure_rendezvous"], 0, 5);
+       $medecins=find_all_medecin_disponible(
+        $rendezvousdetail[0]["nom_type_medecin"],
+        $date_rendezvous,
+        $heure_rendezvous
+        );
+    }else {
+        $rendezvousdetail= find_all_detail_rendezvous2($id_rendezvous);
+       
+
+    }
+     require(ROUTE_DIR.'views/secretaire/traiter.rendezvous.html.php');  
+}
+
+
+
+
+
+function changer_etat( array $data){
+    $id_rendezvous=(int)$_GET['id_rendezvous'];
+    extract($data);
+  if ($traiter=='valider') {
+    $changer=update_etat_rendezvous( "valider",(int) $id_rendezvous);
+    if ($type_rendezvous=='Consultation') {
+    insert_consultation($date_rendezvous, $id_medecin, $id_rendezvous);
+    }else {
+      
+        insert_prestation($nom_prestation,$date_rendezvous, $id_rendezvous);
+    }
+  }else {
+    $changer=update_etat_rendezvous( "annuler", $id_rendezvous);
+  }
+  
 }

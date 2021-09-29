@@ -89,9 +89,13 @@ function count_all_prestation_by_date_or_etat($patient,$etat_consultation, $date
 
 function find_all_consultation_by_patient(int $id_patient , int $offset=0):array{
     $pdo=ouvrir_connection_bd();
-    $sql = "select * from consultation c , rendezvous r
-     where r.id_rendezvous=c.id_rendezvous 
-    and r.id_patient= ? limit $offset,".NOMBRE_PAR_PAGE;
+    $sql = "select * from consultation c , rendezvous r , user u
+     where 
+     r.id_rendezvous=c.id_rendezvous 
+     and
+     c.id_medecin=u.id_user
+     and 
+    r.id_patient= ? limit $offset,".NOMBRE_PAR_PAGE;
     
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute([$id_patient]);
@@ -227,15 +231,12 @@ function insert_rendez_vous( $rendez):int{
     $pdo=ouvrir_connection_bd();
     extract($rendez);
     $sql="INSERT INTO `rendezvous` (`etat_rendezvous`, `date_rendezvous`, `heure_rendezvous`
-    ,`type_rendezvous`,`id_type_medecin`,`id_medecin`,`id_patient`) 
-    VALUES (?, ?, ?, ?, ?,?,?);
+    ,`type_rendezvous`,`nom_prestation`,`id_type_medecin`,`id_medecin`,`id_patient`) 
+    VALUES (?, ?, ?, ?, ?,?,?,?);
     ";
-        $date = date_create();
-        $date = date_format($date , 'Y-m-d H:i:s');
-        $heure = date_create();
-        $heure = date_format($heure , ' H:i:s');
+        
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute(['en cour',$date , $heure , $type_rendezvous ,$type_medecin,$medecin, $id_patient]);
+    $sth->execute(['en cour',$date , $heure , $type_rendezvous ,$nom_prestation ,$type_medecin, $medecin, $id_patient]);
     $dernier_id = $pdo->lastInsertId();
     fermer_connection_bd($pdo);
     return $dernier_id;
@@ -288,53 +289,12 @@ function find_all_type_medecin():array{
 
 
 
-/// pagination
-
-
-
-
-    
- /* function nbre_article( $id_patient,$currentPage){
-	    $pdo= ouvrir_connection_bd();
-        $sql ="SELECT COUNT(*) AS nb_articles FROM rendezvous r , user u 
-        where 
-            u.id_user=r.id_patient
-            and 
-            r.id_patient=?";
-	$sth =$pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute($id_patient);
-        $result = $sth->fetch();
-        $nbArticles = (int) $result['nb_articles'];
-        $parPage = 3;
-        $pages = ceil($nbArticles / $parPage);
-        $premier = ($currentPage * $parPage) - $parPage;
-        fermer_connection_bd($pdo);
-
-        return $result;
 
 
 
 
 
-    }
-    function nombre_page($premier, $parPage){
-        $pdo = ouvrir_connection_bd();
-        $sql = 'SELECT * FROM `rendezvous`r ,user u 
-        where 
-            u.id_user=r.id_patient
-            and 
-            r.id_patient=?
-        ORDER BY `date_rendezvous` DESC LIMIT 5;
-        ';
-        $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        $sth->bindValue(':premier', $premier, PDO::PARAM_INT);
-        $sth->bindValue(':parpage', $parPage, PDO::PARAM_INT);
-        $sth->execute([$premier , $parPage]);
-        $articles = $sth->fetchAll(PDO::FETCH_ASSOC);
-        fermer_connection_bd($pdo);
-
-    } */
- 
+  
 
 
 

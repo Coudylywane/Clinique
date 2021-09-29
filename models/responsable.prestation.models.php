@@ -9,7 +9,9 @@
 
 function find_all_prestation(int $offset=0):array{
     $pdo=ouvrir_connection_bd();
-    $sql = "select * from prestation
+    $sql = "select * from prestation p, rendezvous r
+    where
+    p.id_rendezvous=r.id_rendezvous
     limit $offset,".NOMBRE_PAR_PAGE;
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute();
@@ -23,7 +25,9 @@ function find_all_prestation(int $offset=0):array{
 
 function count_all_prestation():int{
     $pdo=ouvrir_connection_bd();
-    $sql = "select * from prestation
+    $sql = "select * from prestation p, rendezvous r
+    where
+    p.id_rendezvous=r.id_rendezvous
     ;";
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute();
@@ -37,8 +41,10 @@ function count_all_prestation():int{
 function find_all_prestations_by_date_or_etat($etat_prestation, $date, int $offset):array{
     $pdo=ouvrir_connection_bd();
     $params=array($etat_prestation);
-    $sql="select * from prestation p
-        where 
+    $sql="select * from prestation p, rendezvous r
+            where
+            p.id_rendezvous=r.id_rendezvous
+            and
         p.etat_prestation like ? ";
        if (!empty($date)) {
           $sql .= 'and
@@ -56,8 +62,10 @@ function find_all_prestations_by_date_or_etat($etat_prestation, $date, int $offs
 function count_all_prestations_by_date_or_etat($etat_prestation, $date):int{
     $pdo=ouvrir_connection_bd();
     $params=array($etat_prestation);
-    $sql="select * from prestation p 
-        where 
+    $sql="select * from prestation p, rendezvous r
+        where
+        p.id_rendezvous=r.id_rendezvous
+        and
         p.etat_prestation like ? ";
        if (!empty($date)) {
           $sql .= 'and
@@ -67,13 +75,28 @@ function count_all_prestations_by_date_or_etat($etat_prestation, $date):int{
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute($params);
     fermer_connection_bd($pdo);
-    return $sth->rowCount() ;
+    return $sth->rowCount();
 }
 
 
 
 
-
+function find_all_detail_rendezvous_prestation(int $id_rendezvous):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "select * from rendezvous r , user u , prestation p
+    where 
+    r.id_patient=u.id_user
+    and
+    p.id_rendezvous=r.id_rendezvous
+    and
+    r.id_rendezvous=?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_rendezvous]);
+    $rendezvous = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return  $rendezvous;
+}
 
 
 

@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     if (isset($_GET['view'])) {
        if ($_GET['view']=='liste.prestation') {
         liste_prestation();       
+    }elseif ($_GET['view']=='traiter_prestation') {
+        require(ROUTE_DIR.'views/responsable.prestation/traiter_prestation.html.php');
     }
 
 }

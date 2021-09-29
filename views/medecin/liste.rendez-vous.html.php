@@ -1,7 +1,12 @@
 <?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
+<style>
+  .inline {
+    display: contents;
+}
+</style>
 <div class="card h-50">
   <div class="row">
-      <h5 class="mt-5 liste" ><?= $title_page?></h5>
+      <h5 class="mt-5 liste" ><?=$title_page?></h5>
   </div>
 </div>
 <div class="row" style="margin-left: -31px;">
@@ -11,34 +16,79 @@
   <div class="profil" style="margin-top: 1%;">
  <div class="container mt-5 ml-5 ">
 <div class="row">
-
-    <div class="col-md-offset-3">
-    <!-- formulaire -->
-    </div>
 </div>
 </div>
 <div class="row mt-4 ">
   <div class="col-md-12">
       <div class="card tab ml-5 ">
           <div class="card-header">
-            <div class="row">
-                <!-- filtre -->
-                <button type="submit" class="btn text-light ml-4" style="width: 13%;margin-top: 2%;"><i class="bi bi-search image"></i>Rechercher</button>
-              </div>
+          <form class="form-inline" action="<?=WEB_ROUTE?>" method="POST">
+                  <input type="hidden" class="form-control" name="controlleurs" value="secretaire" placeholder="">
+                  <input type="hidden" class="form-control" name="action"  value="filtre.les.rendezvous" placeholder="">
+                      <div class="row inline">
+                            <div class="form-group ml-4">
+                                <label for="">Date</label>
+                                <input type="date" name="date" id="" class="form-control ml-4" placeholder="" aria-describedby="helpId">
+                            </div>
+                            <div class="form-group ml-4">
+                                <label for="">Etat</label>
+                                <select class="form-control ml-4" name="etat" id="">
+                                    <option value="valider">Valider</option>
+                                    <option value="annuler">Annuler</option>
+                                    <option value="en cour">En cour</option>
+                                </select>
+                          </div>
+                          <div class="form-group ml-4">
+                              <button type="submit" class="btn text-light ml-4" style="width: 100%;margin-top: 2%; "><i class="bi bi-search image"></i>Rechercher</button>
+                          </div>
+                          
+                    </div>
+                    
+              </form>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <!-- table -->
+              <table class="table table-bordered">
+                  <thead>
+   
+                  <tr>
+                      <th scope="col" style="width: 15%;">Type Rendez-vous</th>
+                      <th scope="col" style="width: 15%;">Date Rendez-vous</th>
+                      <th scope="col" style="width: 15%;">Heure Rendez-vous</th>
+                      <th scope="col" style="width: 15%;">Etat Rendez-vous</th>
+                      <th scope="col" class="w-25">Type Medecin</th>
+                      <th scope="col" style="width: 20%;">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                      <?php foreach ($medecin_rendezvous as $key => $valous):?>
+                        <tr>
+                          <td><?= ucfirst($valous['type_rendezvous'])?></td>
+                          <td><?=date_format(date_create($valous['date_rendezvous']),'d-m-Y')?></td>
+                          <td><?=date_format(date_create($valous['heure_rendezvous']),'h:i:s')?></td>
+                          <td><?=ucfirst($valous['etat_rendezvous'])?></td>
+                          <td><?=ucfirst($valous['nom_type_medecin'])?></td> 
+                          <td >
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btns"><i class="bi bi-link"></i> Traiter</a>
+                        </td>
+                        </tr>
+                      <?php endforeach?>
+                  </tbody>
+                </table>
               </div>
-              <!-- /.card-body -->
               <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
+              <!-- <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='. ($currentPage - 1) ?>" class="page-link"> «Précédente</a>
+                  </li>
+                   <?php for($i=1;$i<=$pages;$i++):?>
+                     <li class="page-item"><a class="page-link" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.$i?>"><?=$i?></a></li>
+                  <?php endfor ?>
+                 
+                       <li class="page-item <?= ($currentPage == $pages) ? "disabled" : "" ?>">
+                            <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous&page='.($currentPage + 1) ?>" class="page-link">»Suivante</a>
+                        </li>
+                </ul> -->
               </div>
             </div>
           </div>
@@ -52,4 +102,12 @@
   
   <?php require_once(ROUTE_DIR.'views/inc/footer.html.php')?>  
 
+<style>
+  .action{
+    background-color: #00BFFF;
+  }
 
+
+
+ 
+</style>

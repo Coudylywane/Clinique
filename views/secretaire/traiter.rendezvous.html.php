@@ -1,7 +1,7 @@
 <?php require_once(ROUTE_DIR.'views/inc/header.html.php')?>
 <div class="card h-50">
   <div class="row">
-      <h5 class="mt-5 liste" ><?= $title_page?></h5>
+      <h5 class="mt-5 liste" ><?=$title_page?></h5>
   </div>
 </div>
 <div class="row" style="margin-left: -31px;">
@@ -65,30 +65,36 @@
             <div class="row">
                   <div class="col-md-6">
                       <h4 class="ml-1">Medecin Disponible</h4>
-                          <form action="" method="post">
-                              <input type="hidden" class="form-control" name="controlleurs" value="secretaire" placeholder="">
-                              <input type="hidden" class="form-control" name="action"  value="traiter_rendezvous" placeholder="">
                               <div class="form-check ml-3">
                                     <?php foreach ($medecins as $key => $medecin):?>
                                       <div class="row">
                                         <label class="form-check-label ml-5">
-                                        <input type="radio" class="form-check-input" name="radio[]" id="" value="">
+                                        <input type="radio" class="form-check-input" name="radio" id="" value="<?=$medecin['id_medecin']?>">
                                         <?=ucfirst($medecin['nom & prenom'])?>
                                         </label>
                                         </div>
                                     <?php endforeach?>
                                 </div>
-                          </form> 
+                         
                   </div>
               </div>
       </div>
       </div>
   </div>
         <form action="" method="post">
-          <div class="mt-5" style="margin-left:32%">
-              <button type="button" style="margin-left:35%;" class="btn btn-primary">Annuler</button>
-              <button type="button" class="btnnss primary">Valider</button>
-          </div>
+            <input type="hidden"class="form-control" name="controlleurs" value="secretaire" placeholder="">
+            <input type="hidden"class="form-control" name="action" value="valider_rendezvous" placeholder="">
+            <input type="hidden"class="form-control" name="etat_rendezvous" value="<?=ucfirst($rendezvousd['etat_rendezvous'])?>" placeholder="">
+            <input type="hidden"class="form-control" name="date_rendezvous" value="<?=ucfirst($rendezvousd['date_rendezvous'])?>" placeholder="">
+            <input type="hidden"class="form-control" name="type_rendezvous" value="<?=ucfirst($rendezvousd['type_rendezvous'])?>" placeholder="">
+            <input type="hidden"class="form-control" name="id_rendezvous"   value="<?=ucfirst($rendezvousd['id_rendezvous'])?>"   placeholder="">
+            <input type="hidden"class="form-control" name="nom_prestation"  value="<?=ucfirst($rendezvousd['nom_prestation'])?>"   placeholder="">                        
+            <input type="hidden"class="form-control" name="id_medecin" value="<?=$medecin['id_user']?>" placeholder="">
+
+            <div class="mt-5" style="margin-left:32%">
+                <button type="submit" style="margin-left:35%;" class="btn btn-primary" name="traiter" value="annuler">Annuler</button>
+                <button type="submit" class="btnnss primary" name="traiter" value="valider">Valider</button>
+            </div>
       
         </form>
 </div>
@@ -119,4 +125,3 @@
 
 
 
-                      

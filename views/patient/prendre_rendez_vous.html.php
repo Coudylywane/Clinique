@@ -66,6 +66,14 @@ if (isset($_SESSION['arrayError'])) {
                                 <?php endforeach?>
                             </select>
                      </div>
+                     <div class="form-group ml-5 w-75 text-left">
+                        <label for="">Nom prestation</label>
+                            <select class="form-control primary" name="nom_prestation">
+                                <option class="text-center" value="">Entrer le nom de la prestation</option>
+                                <option class="color" value="radiographie">Radiographie</option> 
+                                <option class="color" value="echographie">Echographie</option> 
+                            </select>
+                     </div>
                     <div class="text-center ">
                         <button type="submit" class=" btn text-light" name="annuler" style="background-color: #00BFFF ;">Annuler</button>
                         <button type="submit" class=" bouton text-light" name="submit" style="background-color: #1e293b ;">Valider</button>
