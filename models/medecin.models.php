@@ -89,5 +89,43 @@ function count_all_rendez_vous_by_medecin_by_date_or_etat(int $id_user,$etat_con
 
 
 
+function update_etat_consultation($etat_consultation,$id_consultation):int{
+    $pdo=ouvrir_connection_bd();
+    $sql="UPDATE `consultation` 
+    SET `etat_consultation` = ? 
+    WHERE `consultation`.`id_consultation` = ?;
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$etat_consultation,$id_consultation]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

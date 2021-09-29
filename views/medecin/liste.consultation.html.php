@@ -63,11 +63,15 @@
                           <td>
                             <div class="row">
                               <div class="col-m-6" style="margin-left: 20px;">
-                                <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btnss" style="width: 100%; margin_left:50px;"><i class="bi bi-link"></i> Consulter</a>
+                                <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btnss" style="width: 100%; margin_left:50px;text-decoration:none;"><i class="bi bi-link"></i> Consulter</a>
                               </div>
                               <div class="col-m-6">
-<!--                                  <a href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=traiter_rendezvous&id_rendezvous='.$valous['id_rendezvous']?>" class="text-light btns" style="width: 100%;margin-left:50px;"><i class="bi bi-link"></i> Annuler</a>
- -->                                 <button type="submit" class="btns primary text-light" style="width: 100%;margin-left:50px;"> Annuler</button>
+                                <form action="" method="post">
+                                  <input type="hidden" class="form-control" name="controlleurs" value="medecin" placeholder="">
+                                  <input type="hidden" class="form-control" name="action"  value="annuler" placeholder="">
+                                  <input type="hidden" class="form-control" name="id_consultation"  value="<?=$valous['id_consultation']?>" placeholder="">
+                                   <button type="submit" class="btns primary text-light" style="width: 100%;margin-left:50px;">Annuler</button>
+                                </form>
                               </div>
                             </div>
                             

@@ -11,6 +11,9 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         if (isset($_POST['action'])){
             if ($_POST['action']=='filtre.consultation') {
                 liste_rendez_vous_by_medecin($_POST);
+            }elseif ($_POST['action']=='annuler') {
+              changer_etat_consultation($_POST);
+              liste_rendez_vous_by_medecin();
             }
         }
     }
@@ -48,3 +51,11 @@ function liste_rendez_vous_by_medecin(array $data=null){
     }
     require(ROUTE_DIR.'views/medecin/liste.consultation.html.php');  
     }
+
+    function changer_etat_consultation(array $data){
+        extract($data);
+        $Changer_etat=update_etat_consultation('annuler',$id_consultation);
+
+    }
+
+    
