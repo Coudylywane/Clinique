@@ -37,9 +37,8 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation'?>"><i class="bi bi-list-ul image"></i>Listes Consultations</a>
                 </li>
-           
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"><i class="bi bi-list-ul image"></i></i>Liste des Patients</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.patient'?>"><i class="bi bi-list-ul image"></i></i>Liste des Patients</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"> <i class="bi bi-bar-chart-fill image"></i>Tableau de bord</a>

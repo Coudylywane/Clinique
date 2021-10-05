@@ -84,7 +84,7 @@ function lister_rendez_vous_un_client(array $data=null){
             $currentPage=isset($_GET['page'])?$_GET['page']:1;
             $pages = ceil($count/ $parPage);
             $premier = ($currentPage * $parPage) - $parPage;
-            $consultations=find_all_consultation_by_date_or_etat( $id_user,$etat,$date,$premier);
+            $consultations=find_all_consultation_by_date_or_etat($id_user,$etat,$date,$premier);
         }
         require(ROUTE_DIR.'views/patient/mes.consultations.html.php');   
         }

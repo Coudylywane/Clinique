@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         require(ROUTE_DIR.'views/security/inscription.html.php');
        }elseif($_GET['view']=='deconnexion') {
         deconnexion();
-        require(ROUTE_DIR.'views/security/connexion.html.php');
        }
     }else {
         require(ROUTE_DIR.'views/security/connexion.html.php');
@@ -130,7 +129,11 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
     }
 
     function deconnexion():void{
+      unset($_SESSION['id_consultation']);
+      unset($_SESSION['id_patient']);
       unset ($_SESSION['userConnect']);
+      destroy_session();
+      require(ROUTE_DIR.'views/security/connexion.html.php');
   }
     
 
