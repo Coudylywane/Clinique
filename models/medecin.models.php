@@ -210,11 +210,26 @@ function find_all_medicament():array{
 
 }
 
+function find_all_patient($nom_role , $offset):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT * from user u , role r
+            WHERE
+            u.id_role=r.id_role
+            and 
+            r.nom_role like ?
+            limit $offset,".NOMBRE_PAR_PAGES;
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$nom_role]);
+    $patients= $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return [
+        "data" => $patients,
+        "count" => $sth->rowCount()
+       ] ;
+}
 
 
-
-
-function find_all_patient($nom_role):array{
+function count_all_patient($nom_role):int{
     $pdo=ouvrir_connection_bd();
     $sql = "SELECT * from user u , role r
             WHERE
@@ -224,13 +239,23 @@ function find_all_patient($nom_role):array{
     ";
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $sth->execute([$nom_role]);
-    $patients= $sth->fetchAll();
     fermer_connection_bd($pdo);
-    return  $patients;
-}
+    return $sth->rowCount();
+
+} 
 
 
-            
+
+
+
+
+
+
+
+
+
+
+
 
 function update_consultation($constantes ,$descriptions , $id_consultation):int{   
 $pdo=ouvrir_connection_bd();
@@ -244,6 +269,54 @@ $sql = "UPDATE `consultation` SET `constantes_consultation` = ?,
     $sth->execute([$constantes , $descriptions , $id_consultation]);
     return $sth->rowCount();
 }
+
+
+function insert_ordonnance(array $ordonnance):int{
+    $pdo=ouvrir_connection_bd();
+    extract($ordonnance);
+    $sql="INSERT INTO `ordonnance` (`date_ordonnance`, `id_consultation`)
+    VALUES (?, ?);
+    ";
+    $now = date_create();
+    $now = date_format($now , 'Y-m-d H:i:s');  
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$now , $id_consultation]);
+    $dernier_id = $pdo->lastInsertId();
+    fermer_connection_bd($pdo);
+    return $dernier_id;
+}
+
+
+function insert_ordonnance_medicament($id_ordonnance , $id_medicament , $posologie_medicament):int{
+    $pdo=ouvrir_connection_bd();
+    extract($rendez);
+    $sql="INSERT INTO `ordonnance_medicament` (`id_ordonnance`, `id_medicament` ,`posologie_medicament` )
+    VALUES (?, ? , ?);
+    ";
+    $now = date_create();
+    $now = date_format($now , 'Y-m-d H:i:s');  
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_ordonnance , $id_medicament , $posologie_medicament]);
+    $dernier_id = $pdo->lastInsertId();
+    fermer_connection_bd($pdo);
+    return $dernier_id;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

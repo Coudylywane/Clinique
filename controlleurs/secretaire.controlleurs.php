@@ -84,7 +84,6 @@ function liste_medecin_disponible(){
 
 
 
-
 function changer_etat( array $data){
     $id_rendezvous=(int)$_GET['id_rendezvous'];
     extract($data);
@@ -93,8 +92,7 @@ function changer_etat( array $data){
     if ($type_rendezvous=='Consultation') {
     insert_consultation($date_rendezvous, $id_medecin, $id_rendezvous);
     }else {
-      
-        insert_prestation($nom_prestation,$date_rendezvous, $id_rendezvous);
+       insert_prestation($nom_prestation,$date_rendezvous, $id_rendezvous);
     }
   }else {
     $changer=update_etat_rendezvous( "annuler", $id_rendezvous);

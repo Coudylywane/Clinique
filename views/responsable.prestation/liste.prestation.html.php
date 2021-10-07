@@ -33,8 +33,8 @@
               <div class="form-group ml-4">
                       <label for="">Etat</label>
                       <select class="form-control ml-4" name="etat" id="">
-                        <option value="valider">Valider</option>
-                        <option value="en cour">En cour</option>
+                        <option value="deja fait">Deja fait</option>
+                        <option value="pas fait">Pas fait</option>
                         <option value="annuler">Annuler</option>
                       </select>
                 </div>
@@ -52,10 +52,9 @@
                 <thead>
    
                     <tr>
-                    <th scope="col" style="width: 15%;">Type Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Date Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Heure Rendez-vous</th>
-                      <th scope="col" style="width: 15%;">Etat Rendez-vous</th>
+                      <th scope="col" style="width: 15%;">Date Prestation</th>
+                      <th scope="col" style="width: 15%;">Heure Prestation</th>
+                      <th scope="col" style="width: 15%;">Etat Prestation</th>
                       <th scope="col" style="width: 20%;">Action</th>
 
                     </tr>
@@ -63,13 +62,11 @@
                   <tbody>
                   <?php foreach ($prests as $key => $prest):?>
                   <tr>
-                      <td><?= $prest['type_rendezvous']?></td>
                       <td><?=date_format(date_create($prest['date_prestation']),'d-m-Y')?></td>
                       <td><?=date_format(date_create($prest['heure_prestation']),'H:i')?></td>
-                      <td><?=$prest['etat_rendezvous']?></td>
+                      <td><?=$prest['etat_prestation']?></td>
                       <td>
-                            <a href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=traiter_prestation'?>" class="text-light btnns"><i class="bi bi-link"></i> Traiter</a>
-                            <a href="<?= WEB_ROUTE.'?controlleurs=patient&view=prendre_rendez_vous'?>" class="text-light btnnss"><i class="bi bi-plus-square-fill"></i> Detail</a>
+                            <a href="<?= WEB_ROUTE.'?controlleurs=responsable.prestation&view=traiter_prestation&id_prestation='.$prest['id_prestation']?>" class="text-light btnns"><i class="bi bi-link"></i> Traiter</a>
 
                         </td>
                   </tr>

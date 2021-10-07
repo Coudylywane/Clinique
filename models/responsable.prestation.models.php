@@ -98,7 +98,74 @@ function find_all_detail_rendezvous_prestation(int $id_rendezvous):array{
     return  $rendezvous;
 }
 
+///
+    function find_all_detail_prestation(int $id_prestation):array{
+        $pdo=ouvrir_connection_bd();
+        $sql = "select * from  prestation p  , rendezvous r , user u
+        where 
+        p.id_rendezvous=r.id_rendezvous
+        AND
+        r.id_patient=u.id_user
+        and
+        p.id_prestation=?
+        ;";
+        $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute([$id_prestation]);
+        $prestations= $sth->fetchAll();
+        fermer_connection_bd($pdo);
+        return  $prestations;
+    }
 
+
+
+
+
+    function update_etat_prestation(string $etat_prestation,  int $id_prestation):int{
+        $pdo=ouvrir_connection_bd();
+        $sql="UPDATE `prestation` 
+        SET 
+        `etat_prestation`= ? 
+        WHERE 
+        `prestation`.`id_prestation` = ?
+        ";
+        $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth->execute([$etat_prestation,$id_prestation]);
+        fermer_connection_bd($pdo);
+        return $sth->rowCount();
+    }
+
+
+
+
+
+
+
+
+ function insert_image( string $nom_image):int{
+    $pdo=ouvrir_connection_bd();
+    extract($rendez);
+    $sql="INSERT INTO `image` (`nom_image`) 
+    VALUES (?);
+    ";
+        
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$nom_image]);
+    $dernier_id = $pdo->lastInsertId();
+    fermer_connection_bd($pdo);
+    return $dernier_id;
+}
+
+function update_image_prestation($id_image , $id_prestation):int{
+    $pdo=ouvrir_connection_bd();
+    $sql="UPDATE `prestation` 
+    SET `id_image` = ?
+     WHERE `prestation`.`id_prestation` = ?;
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$id_image,$id_prestation]);
+    fermer_connection_bd($pdo);
+    return $sth->rowCount();
+}
 
 
 

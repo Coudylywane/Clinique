@@ -18,7 +18,10 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
               changer_etat_consultation($_POST);
               liste_rendez_vous_by_medecin();
             }elseif ($_POST['action']=='modifier') {
-                modifier_consultation($_POST);
+                ajout_consultation($_POST);
+                consulter_tout($_POST);
+                liste_rendez_vous_by_medecin();
+
               }
         }
     }
@@ -111,23 +114,48 @@ function liste_rendez_vous_by_medecin(array $data=null){
 
     
     function liste_patients(){
-    $patients= find_all_patient('patient');
+    $title_page='Liste des Patients'; 
+            $count=count_all_patient('patient'); 
+            $parPage = NOMBRE_PAR_PAGES;
+            $currentPage=isset($_GET['page'])?$_GET['page']:1;
+            $pages = ceil($count/ $parPage);
+            $premier = ($currentPage * $parPage) - $parPage;
+            $rows=find_all_patient('patient',$premier);
+            $patients= $rows['data'];
     require(ROUTE_DIR.'views/medecin/liste.patient.html.php');  
 
     }
+    
 
-
-
-    function modifier_consultation(array $data){
-       
+    function ajout_consultation(array $data){
         if (isset($_GET['id_consultation'])) {
-            $id_consultation=$_GET['id_consultation'];
+        $id_consultation=$_GET['id_consultation'];
+        $_SESSION['id_consultation']=$id_consultation;
         }
         extract($data);
         $modifier=update_consultation($constantes , $descriptions , $id_consultation);
-        $Changer=update_etat_consultation('deja fait',$id_consultation);
-    require(ROUTE_DIR.'views/medecin/liste.consultation.html.php');  
+        $Changer=update_etat_consultation('deja fait',$id_consultation);        
+        
     }
 
 
+
+
+
+    function consulter_tout( array $data):void{
+        $id_consultation=$_SESSION['id_consultation'];
+        $data['id_consultation']=$id_consultation;
+          extract($data);
+          $id_ordonnance=insert_ordonnance($data);
+            foreach ($medicaments as $medicament) {
+                $id_medicament=(int)$medicament;
+                foreach($posologies as $poso){
+                       $posologie=$poso;
+                       insert_ordonnance_medicament($id_ordonnance,$id_medicament,$posologie);
+                }
+              } 
+            header('location:'.WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation');
+            exit();
+        
+    }
     

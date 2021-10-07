@@ -142,7 +142,7 @@ function prendre_rendez_vous( array $data):void{
          $_SESSION['arrayError']=$arrayError;
          header('location:'.WEB_ROUTE.'?controlleurs=patient&view=prendre_rendez_vous');
          exit();
-}
+        }
 }
 
 
