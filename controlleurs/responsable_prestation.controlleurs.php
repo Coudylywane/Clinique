@@ -101,12 +101,9 @@ function changer_etat(array $data , $files){
         $id_image=[];
          foreach ($arrayBasename as  $image) {
             $nom_image=$image;
-            $id_image[]=insert_image($nom_image);
+            insert_image($nom_image, $id_prestation);
         }
-        foreach ($id_image as $key => $value) {
-            update_image_prestation($value,$id_prestation);
-        }
-    $Changer_etat=update_etat_prestation('deja fait',$id_prestation);
+     $Changer_etat=update_etat_prestation('deja fait',$id_prestation);
     for ($i=0; $i < count($arrayBasename); $i++) { 
         valide_image1($arraySize[$i], $arrayError, 'images', $arrayBasename[$i]);
 

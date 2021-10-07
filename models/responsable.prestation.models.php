@@ -141,31 +141,21 @@ function find_all_detail_rendezvous_prestation(int $id_rendezvous):array{
 
 
 
- function insert_image( string $nom_image):int{
+ function insert_image( string $nom_image , $id_prestation):int{
     $pdo=ouvrir_connection_bd();
     extract($rendez);
-    $sql="INSERT INTO `image` (`nom_image`) 
-    VALUES (?);
+    $sql="INSERT INTO `image` (`nom_image` , `id_prestation` ) 
+    VALUES (?,?);
     ";
         
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute([$nom_image]);
+    $sth->execute([$nom_image , $id_prestation]);
     $dernier_id = $pdo->lastInsertId();
     fermer_connection_bd($pdo);
     return $dernier_id;
 }
 
-function update_image_prestation($id_image , $id_prestation):int{
-    $pdo=ouvrir_connection_bd();
-    $sql="UPDATE `prestation` 
-    SET `id_image` = ?
-     WHERE `prestation`.`id_prestation` = ?;
-    ";
-    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute([$id_image,$id_prestation]);
-    fermer_connection_bd($pdo);
-    return $sth->rowCount();
-}
+
 
 
 
