@@ -41,7 +41,7 @@
                     <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=medecin&view=liste.patient'?>"><i class="bi bi-list-ul image"></i></i>Liste des Patients</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"> <i class="bi bi-bar-chart-fill image"></i>Tableau de bord</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=tableau'?>"> <i class="fas fa-chart-line image"></i>Tableau de bord</a>
                 </li>
             <?php endif?>
             <?php if (est_secretaire()):?>
@@ -49,7 +49,7 @@
                     <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=rendez-vous'?>"><i class="bi bi-list-ul image"></i>Liste Rendez-vous</a> 
             </li>
             <li class="nav-item">
-                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=admin&view=tableau.bord'?>"> <i class="bi bi-bar-chart-fill image"></i>Tableau de bord</a>
+                    <a class="nav-link text-light" href="<?= WEB_ROUTE.'?controlleurs=secretaire&view=tableau'?>"> <i class="fas fa-chart-line image"></i> Tableau de bord</a>
                 </li>
             <?php endif?>
 

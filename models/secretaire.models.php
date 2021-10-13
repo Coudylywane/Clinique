@@ -262,7 +262,100 @@ function insert_prestation($nom_prestation, $date, $id_rendezvous):int{
 }
 
 
+function find_all_medecin_disponible_now($date_rendezvous):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT count(u.id_user) as user from user u , role r , type_medecin t 
+    where 
+    u.id_role=r.id_role
+    and
+    u.id_type_medecin=t.id_type_medecin
+    and
+    u.id_user not in (
+              SELECT u.id_user from rendezvous re , user u , role r , type_medecin t 
+               where
+                  u.id_role=r.id_role
+                    and 
+                  u.id_type_medecin=t.id_type_medecin
+                     and 
+                 re.date_rendezvous like ?
+               );
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$date_rendezvous]);
+    $AllMedecin= $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return  $AllMedecin ;
+}
 
+function nbre_patient($nom_role):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT count(u.id_user) as patient from user u , role r 
+    where 
+    u.id_role=r.id_role
+    and
+    r.nom_role like ?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute([$nom_role]);
+    $nbre_patients = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $nbre_patients;
+}
+
+
+function nbre_consultation($type_rendezvous):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT count(r.id_rendezvous) as consultation from rendezvous r  
+    where
+    r.type_rendezvous like ?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute(array($type_rendezvous));
+    $nbre_patients = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $nbre_patients;
+}
+
+function find_consultation_by_date($date_consultation):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT * from consultation c 
+    where 
+    c.date_consultation like ?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute(array($date_consultation));
+    $liste_consultation_now = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $liste_consultation_now;
+}
+
+function find_consultation_by_date_by_etat_by_constante($date_consultation):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT * from consultation c 
+    where 
+    c.date_consultation like ?
+    and
+    
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute(array($date_consultation));
+    $liste_consultation_now = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $liste_consultation_now;
+}
+
+function find_prestation_by_date($date_prestation):array{
+    $pdo=ouvrir_connection_bd();
+    $sql = "SELECT * from prestation p 
+    where 
+    p.date_prestation like ?
+    ";
+    $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $sth->execute(array($date_prestation));
+    $liste_consultation_now = $sth->fetchAll();
+    fermer_connection_bd($pdo);
+    return $liste_consultation_now;
+}
 
 ?>
 

@@ -7,7 +7,10 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
         liste_rendez_vous();       
     }elseif ($_GET['view']=='traiter_rendezvous') {
         liste_medecin_disponible() ;   
-    }
+    }elseif ($_GET['view']=='tableau') {
+        now_medecin();
+
+       }
 
 }else {
     require(ROUTE_DIR.'views/security/connexion.html.php');
@@ -99,3 +102,20 @@ function changer_etat( array $data){
   }
   
 }
+
+
+function now_medecin(){
+    $now=date_create();
+    $now=date_format($now, "Y-m-d");
+    $now_medecin=find_all_medecin_disponible_now($now);
+    $consultation_now=nbre_consultation('consultation');
+    $prestation_now=nbre_consultation('prestation');
+    $liste_consultation_now=find_consultation_by_date($now);
+    $liste_prestation_now=find_prestation_by_date($now);
+    require(ROUTE_DIR.'views/secretaire/tableau.html.php');  
+
+}
+
+
+
+

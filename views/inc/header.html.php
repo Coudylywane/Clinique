@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?= WEB_ROUTE.'css/header.css'?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>  
   </head>
   <body style="background-color: #f4f6f9;">
   

@@ -247,16 +247,6 @@ function count_all_patient($nom_role):int{
 
 
 
-
-
-
-
-
-
-
-
-
-
 function update_consultation($constantes ,$descriptions , $id_consultation):int{   
 $pdo=ouvrir_connection_bd();
 $sql = "UPDATE `consultation` SET `constantes_consultation` = ?, 
@@ -301,7 +291,6 @@ function insert_ordonnance_medicament($id_ordonnance , $id_medicament , $posolog
     fermer_connection_bd($pdo);
     return $dernier_id;
 }
-
 
 
 

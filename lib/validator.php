@@ -1,4 +1,6 @@
 <?php 
+
+
 function est_vide(string $valeur): bool {
     return empty($valeur);
 }
@@ -10,7 +12,7 @@ function form_valid($arrayError):bool{
     return false;
 }
 
-// login valide 
+// login valid
 
 function validation_login($login):bool{
     if (preg_match(PATTERN_EMAIL,$login)) {
