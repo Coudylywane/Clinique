@@ -21,7 +21,7 @@
                         <option value="<?=$medicament['id_medicament']?>"><?= $medicament['nom_medicament']?></option>
                     <?php endforeach?>
                     </select>                    
-                    <input type="text" aria-label="Last name" class="form-control" style="margin-right: 30%;" name="posologies[]">
+                    <input type="text" aria-label="Last name" class="form-control" style="margin-right: 30%;" name="posologies">
                     <button type="button" class="btn btn-primary text_light" onclick="addField()" style="position: relative;right: 11%;;">+</button>
                 </div>
                 <div id="Cible">
@@ -34,7 +34,7 @@
 <script>
 function addField() {
 document.getElementById('Cible').innerHTML +=
-'<label for="" class="ml-5">Medicament</label><label for="" style="margin-left: 32%;">Posologie</label><div class="input-group ml-5"><select class="form-control" name="medicaments[]" ><option value="0">Entrer un medicament</option><?php foreach ($medicaments as  $medicament):?><option value="<?=$medicament['id_medicament']?>"><?= $medicament['nom_medicament']?></option><?php endforeach?></select><input type="text" aria-label="Last name" class="form-control"style="margin-right: 25%;" name="posologies[]"></div>'; 
+'<label for="" class="ml-5">Medicament</label><label for="" style="margin-left: 32%;">Posologie</label><div class="input-group ml-5"><select class="form-control" name="medicaments[]" ><option value="0">Entrer un medicament</option><?php foreach ($medicaments as  $medicament):?><option value="<?=$medicament['id_medicament']?>"><?= $medicament['nom_medicament']?></option><?php endforeach?></select><input type="text" aria-label="Last name" class="form-control"style="margin-right: 25%;" name="posologies"></div>'; 
 
 }
 

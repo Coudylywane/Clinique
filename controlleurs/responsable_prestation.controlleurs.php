@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD']=='GET') {
 function liste_prestation(array $data=null){
     $title_page='Liste des Prestations';
     if (is_null($data)) {
-        $count=count_all_prestation(); 
+        $count=count_all_prestation('prestation'); 
         $parPage = NOMBRE_PAR_PAGE;
         $currentPage=isset($_GET['page'])?$_GET['page']:1;
         $pages = ceil($count/ $parPage);
@@ -49,12 +49,12 @@ function liste_prestation(array $data=null){
         $prests= $rows['data'];
     }else {
         extract($data);
-        $count=count_all_prestations_by_date_or_etat($etat,$type,$date); 
+        $count=count_all_prestations_by_date_or_etat($etat,'prestation',$date); 
         $parPage = NOMBRE_PAR_PAGE;
         $currentPage=isset($_GET['page'])?$_GET['page']:1;
         $pages = ceil($count/ $parPage);
         $premier = ($currentPage * $parPage) - $parPage;
-        $prests=find_all_prestations_by_date_or_etat($etat,$date,$premier);
+        $prests=find_all_prestations_by_date_or_etat($etat,'prestation',$date,$premier);
     }
     require(ROUTE_DIR.'views/responsable.prestation/liste.prestation.html.php');
 }
@@ -62,10 +62,10 @@ function liste_prestation(array $data=null){
 
 
 function detail_prestation(){
-    if (isset($_GET['id_prestation'])) {
-        $id_prestation=$_GET['id_prestation'];
+    if (isset($_GET['id_rendezvous'])) {
+        $id_rendezvous=$_GET['id_rendezvous'];
     }
-    $details= find_all_detail_prestation($id_prestation);
+    $details= find_all_detail_prestation($id_rendezvous);
     /* var_dump($details);
     die; */
     require(ROUTE_DIR.'views/responsable.prestation/traiter_prestation.html.php');

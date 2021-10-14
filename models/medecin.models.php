@@ -247,18 +247,22 @@ function count_all_patient($nom_role):int{
 
 
 
-function update_consultation($constantes ,$descriptions , $id_consultation):int{   
+function update_consultation($constantes ,$etat_consultation , $descriptions , $id_consultation):int{   
 $pdo=ouvrir_connection_bd();
-$sql = "UPDATE `consultation` SET `constantes_consultation` = ?, 
-       `description_consultation` = ?
-        WHERE 
-       `consultation`.`id_consultation` = ?
-     ;";
+$sql = "UPDATE `consultation` SET 
+`constantes_consultation` = ?, 
+`etat_consultation` = ?, 
+`description_consultation` = ?
+ WHERE `consultation`.`id_consultation` = ?
+ ;";
     
     $sth = $pdo->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $sth->execute([$constantes , $descriptions , $id_consultation]);
+    $sth->execute([$constantes ,$etat_consultation, $descriptions , $id_consultation]);
     return $sth->rowCount();
 }
+
+
+
 
 
 function insert_ordonnance(array $ordonnance):int{

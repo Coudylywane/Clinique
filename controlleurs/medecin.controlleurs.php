@@ -132,9 +132,10 @@ function liste_rendez_vous_by_medecin(array $data=null){
         $id_consultation=$_GET['id_consultation'];
         $_SESSION['id_consultation']=$id_consultation;
         }
+      
         extract($data);
-        $modifier=update_consultation($constantes , $descriptions , $id_consultation);
-        $Changer=update_etat_consultation('deja fait',$id_consultation);        
+        $modifier=update_consultation($constantes ,'deja fait', $descriptions , $id_consultation);  
+             
         
     }
 
@@ -149,11 +150,8 @@ function liste_rendez_vous_by_medecin(array $data=null){
           $id_ordonnance=insert_ordonnance($data);
             foreach ($medicaments as $medicament) {
                 $id_medicament=(int)$medicament;
-                foreach($posologies as $poso){
-                       $posologie=$poso;
-                       insert_ordonnance_medicament($id_ordonnance,$id_medicament,$posologie);
+                       insert_ordonnance_medicament($id_ordonnance,$id_medicament,$posologies);
                 }
-              } 
             header('location:'.WEB_ROUTE.'?controlleurs=medecin&view=liste.consultation');
             exit();
         
